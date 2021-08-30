@@ -93,7 +93,7 @@
                             <ul class="list-group">
                                 @foreach($memos as $memo)
                                 <li class="list-group-item border-0">
-                                    <a class="card-text">{{$memo['content']}}</a>
+                                    <a href="/edit/{{$memo->id}}" class="card-text d-block">{{$memo->content}}</a>
                                 </li>
                                 @endforeach
                             </ul>
