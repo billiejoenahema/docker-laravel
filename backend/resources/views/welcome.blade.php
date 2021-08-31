@@ -25,8 +25,10 @@
 </head>
 
 <body class="antialiased">
-    <div>
-        Laravel Memo
+    <div class="d-inline-flex">
+        <p>Laravel Memo</p>
+        <a href="/login">ログイン</a>
+        <a href="/register">新規登録</a>
     </div>
 </body>
 
