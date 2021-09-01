@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Memo;
 
 class HomeController extends Controller
@@ -35,14 +36,20 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
+        // ddd($posts);
 
-        Memo::insert(
-            [
-                'content' => $posts['content'],
-                'user_id' => \Auth::id()
-            ]
-        );
-        return redirect('home');
+        DB::transaction(function () use ($posts) {
+            $memo_id = Memo::insertGetId(
+                [
+                    'content' => $posts['content'],
+                    'user_id' => \Auth::id()
+                ]
+            );
+            if (!empty($posts['new_tag'])) {
+                dd('新規タグが入力されています');
+            }
+        });
+        return redirect(route('home'));
     }
 
     public function edit($id)
@@ -67,6 +74,15 @@ class HomeController extends Controller
                 'user_id' => \Auth::id()
             ]
         );
+        return redirect('home');
+    }
+
+    public function destroy(Request $request)
+    {
+        $posts = $request->all();
+
+        Memo::where('id', $posts['memo_id'])
+            ->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
         return redirect('home');
     }
 }
