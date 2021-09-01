@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Memo;
+use App\Models\Tag;
+use App\Models\MemoTag;
 
 class HomeController extends Controller
 {
@@ -36,7 +38,6 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
-        // ddd($posts);
 
         DB::transaction(function () use ($posts) {
             $memo_id = Memo::insertGetId(
@@ -45,10 +46,26 @@ class HomeController extends Controller
                     'user_id' => \Auth::id()
                 ]
             );
-            if (!empty($posts['new_tag'])) {
-                dd('新規タグが入力されています');
+            $tag_exists = Tag::where('user_id', '=', \Auth::id())
+                ->where('name', '=', $posts['new_tag'])
+                ->exists();
+            // タグが入力されていて、既存タグと重複していなければ処理を進める
+            if (!empty($posts['new_tag']) || $posts['new_tag'] === "0" && !$tag_exists) {
+                $tag_id = Tag::insertGetId(
+                    [
+                        'user_id' => \Auth::id(),
+                        'name' => $posts['new_tag']
+                    ]
+                );
+                MemoTag::insert(
+                    [
+                        'memo_id' => $memo_id,
+                        'tag_id' => $tag_id
+                    ]
+                );
             }
-        });
+        }, 5); // 第2引数 = デッドロックが発生した時の再試行回数
+
         return redirect(route('home'));
     }
 
