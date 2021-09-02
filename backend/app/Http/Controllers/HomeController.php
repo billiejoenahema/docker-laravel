@@ -32,7 +32,13 @@ class HomeController extends Controller
             ->whereNull('deleted_at')
             ->orderBy('updated_at', 'DESC')
             ->get();
-        return view('create', compact('memos'));
+
+        $tags = Tag::where('user_id', '=', \Auth::id())
+            ->whereNull('deleted_at')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return view('create', compact('memos', 'tags'));
     }
 
     public function store(Request $request)
@@ -40,16 +46,19 @@ class HomeController extends Controller
         $posts = $request->all();
 
         DB::transaction(function () use ($posts) {
+            // get memo id
             $memo_id = Memo::insertGetId(
                 [
                     'content' => $posts['content'],
                     'user_id' => \Auth::id()
                 ]
             );
+            // check existing new tag in Tag's table
             $tag_exists = Tag::where('user_id', '=', \Auth::id())
                 ->where('name', '=', $posts['new_tag'])
                 ->exists();
-            // タグが入力されていて、既存タグと重複していなければ処理を進める
+
+            // insert new tag into Tag & MemoTag's table
             if (!empty($posts['new_tag']) || $posts['new_tag'] === "0" && !$tag_exists) {
                 $tag_id = Tag::insertGetId(
                     [
@@ -63,6 +72,13 @@ class HomeController extends Controller
                         'tag_id' => $tag_id
                     ]
                 );
+            }
+
+            // insert existing tags into MemoTag's table
+            if (array_key_exists('tags', $posts)) {
+                foreach ($posts['tags'] as $tag) {
+                    MemoTag::insert(['memo_id' => $memo_id, 'tag_id' => $tag]);
+                }
             }
         }, 5); // 第2引数 = デッドロックが発生した時の再試行回数
 
