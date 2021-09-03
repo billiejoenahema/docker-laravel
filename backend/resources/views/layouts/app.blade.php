@@ -76,13 +76,20 @@
 
         <main>
             <div class="row">
-                <div class="col-md-2 p-0">
+                <div class="col-md-2 pr-0">
                     <div class="card">
-                        <div class="card-header">左カラム</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                With supporting text below as a natural lead-in to additional content.
-                            </p>
+                        <div class="card-header">タグ一覧</div>
+                        <div class="card-body p-0">
+                            <ul class="list-group">
+                                <li class="list-group-item border-0">
+                                    <a href="/" class="card-text d-block">すべて表示</a>
+                                </li>
+                                @foreach($tags as $tag)
+                                <li class="list-group-item border-0">
+                                    <a href="/?tag={{$tag->id}}" class="card-text d-block">{{$tag->name}}</a>
+                                </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>

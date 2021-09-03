@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use App\Models\Memo;
 use App\Models\Tag;
-use App\Models\MemoTag;
+// use App\Models\MemoTag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,7 +35,13 @@ class AppServiceProvider extends ServiceProvider
                 ->orderBy('updated_at', 'DESC')
                 ->get();
 
-            $view->with('memos', $memos);
+            // get all tag
+            $tags = Tag::where('user_id', '=', \Auth::id())
+                ->whereNull('deleted_at')
+                ->orderBy('id', 'DESC')
+                ->get();
+
+            $view->with('memos', $memos)->with('tags', $tags);
         });
     }
 }
