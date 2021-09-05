@@ -10,7 +10,7 @@
         <form class="d-inline-flex" id="delete-form" action="{{route('destroy')}}" method="POST">
             @csrf
             <input type="hidden" name="memo_id" value="{{$edit_memo[0]->id}}" />
-            <button class="btn btn-danger py-0" type="submit" onclick="deleteHandle(event)">削除</button>
+            <i class="fa-solid fa-trash danger" onclick="deleteHandle(event)"></i>
         </form>
     </div>
     <form class="card-body" action="{{route('update')}}" method="POST">
