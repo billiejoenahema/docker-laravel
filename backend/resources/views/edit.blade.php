@@ -5,15 +5,15 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         メモ編集
-        <form class="d-inline-flex" id="delete-form" action="{{route('destroy')}}" method="POST">
+        <form class="mb-0" id="delete-form" action="{{route('destroy')}}" method="POST">
             @csrf
             <input type="hidden" name="memo_id" value="{{$edit_memo[0]->id}}" />
             <i class="fa-solid fa-trash danger" onclick="deleteHandle(event)"></i>
         </form>
     </div>
-    <form class="card-body" action="{{route('update')}}" method="POST">
+    <form class="card-body full-height-card-body" action="{{route('update')}}" method="POST">
         @csrf
         <input type="hidden" name="memo_id" value="{{$edit_memo[0]->id}}" />
         <div class="form-group">

@@ -35,7 +35,7 @@
                 <div class="col-md-2 pr-0">
                     <div class="card">
                         <div class="card-header">タグ一覧</div>
-                        <div class="card-body p-0">
+                        <div class="card-body full-height-card-body p-0">
                             <ul class="list-group">
                                 <li class="list-group-item border-0">
                                     <a href="/" class="card-text d-block">すべて表示</a>
@@ -52,11 +52,12 @@
                 <div class="col-md-4 p-0">
                     <div class="card">
                         <div class="card-header">メモ一覧</div>
-                        <div class="card-body p-0">
+                        <div class="card-body full-height-card-body p-0">
                             <ul class="list-group">
                                 @foreach($memos as $memo)
                                 <li class="list-group-item border-0">
-                                    <a href="/edit/{{$memo->id}}" class="card-text d-block">{{$memo->content}}</a>
+                                    <a href="/edit/{{$memo->id}}"
+                                        class="card-text d-block ellipsis">{{$memo->content}}</a>
                                 </li>
                                 @endforeach
                             </ul>
