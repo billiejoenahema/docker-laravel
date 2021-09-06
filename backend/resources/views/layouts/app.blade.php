@@ -32,7 +32,7 @@
 
         <main>
             <div class="row">
-                <div class="col-md-2 pr-0">
+                <div class="col-sm-12 col-md-2 pr-0">
                     <div class="card">
                         <div class="card-header">タグ一覧</div>
                         <div class="card-body full-height-card-body p-0">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 p-0">
+                <div class="col-sm-12 col-md-4 p-0">
                     <div class="card">
                         <div class="card-header">メモ一覧</div>
                         <div class="card-body full-height-card-body p-0">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 p-0">
+                <div class="col-sm-12 col-md-6 p-0">
                     @yield('content')
                 </div>
             </div>
