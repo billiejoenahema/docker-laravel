@@ -13,4 +13,19 @@ php artisan key:generate
 chown -R www-data:www-data /work
 # chmod -R 777 /work/storage
 php artisan migrate --seed
+npm install
+npm run dev
+exit
 ```
+
+```bash
+docker-compose exec app npm run watch
+```
+
+## Technology
+
+- Laravel 8
+- Vue 3.2
+- Docker
+- MySQL
+- Nginx
