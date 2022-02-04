@@ -26,6 +26,8 @@ docker-compose exec app npm run watch
 
 - Laravel 8
 - Vue 3.2
+- Vue-router 4.0
+- Vuex 4.0
 - Docker
 - MySQL
 - Nginx
