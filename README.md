@@ -31,3 +31,4 @@ docker-compose exec app npm run watch
 - Docker
 - MySQL
 - Nginx
+- Simple.css

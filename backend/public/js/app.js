@@ -19350,7 +19350,7 @@ var _hoisted_1 = {
   "class": "column"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"row\"><label for=\"login-email\">Email</label><input id=\"login-email\" type=\"email\"></div><div class=\"row\"><label for=\"login-password\">Password</label><input id=\"login-password\" type=\"password\"></div><ul class=\"row\"><li class=\"button submit\">ログイン</li></ul>", 3);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"column\"><label for=\"login-email\">Email</label><input id=\"login-email\" type=\"email\"></div><div class=\"column\"><label for=\"login-password\">Password</label><input id=\"login-password\" type=\"password\"></div><ul class=\"row\"><li class=\"button submit\">ログイン</li></ul>", 3);
 
 var _hoisted_5 = [_hoisted_2];
 function render(_ctx, _cache) {
@@ -23945,7 +23945,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.column {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n.row {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n}\n.button {\n  height: 2rem;\n  width: 100% !important;\n  cursor: pointer;\n}\n.button:hover {\n  opacity: 0.8;\n}\nli.button.submit {\n  background: #0d47a1;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.column {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n.column label,\n.column input {\n  width: 100%;\n}\n.row {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 100%;\n  padding: 0;\n}\n.button {\n  height: 2rem;\n  margin: 0;\n  width: 100% !important;\n  cursor: pointer;\n  text-align: center;\n}\n.button:hover {\n  opacity: 0.8;\n}\nli.button.submit {\n  background: #0d47a1;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
