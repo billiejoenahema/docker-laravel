@@ -4,4 +4,5 @@ const hello = 'Hello!';
 
 <template>
   <div>{{ hello }}</div>
+  <router-link to="/login">Login</router-link>
 </template>
