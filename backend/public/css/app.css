@@ -1,5 +1,39 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 @charset "UTF-8";
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.button {
+  height: 2rem;
+  width: 100% !important;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+li.button.submit {
+  background: #0d47a1;
+}
+
+.cancel {
+  background: #cfd8dc;
+}
+
+.delete {
+  background: #b71c1c;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
