@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth']], function () {});
+Route::group(['middleware' => ['auth']], function () {
+    // ログインユーザー
+    Route::get('/login_user', LoginUserController::class)->name('login_user');
+});
