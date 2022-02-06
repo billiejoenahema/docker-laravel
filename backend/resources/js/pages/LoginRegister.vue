@@ -2,6 +2,7 @@
 
 <template>
   <form class="column">
+    <div class="row"><h4>ログイン</h4></div>
     <div class="column">
       <label for="login-email">Email</label>
       <input id="login-email" type="email" />
