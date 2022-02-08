@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\LoginUserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::group(['middleware' => ['auth']], function () {
     // ログインユーザー
-    Route::get('/login_user', LoginUserController::class)->name('login_user');
+    Route::post('/login_user', LoginUserController::class)->name('login_user');
 });
