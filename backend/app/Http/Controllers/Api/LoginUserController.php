@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Http\Resources\LoginUserResource;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginUserController extends Controller
 {
     /**
      * ログインユーザーの情報を返します。
