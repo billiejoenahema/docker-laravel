@@ -27,11 +27,27 @@ const actions = {
       .then((res) => {
         console.log(res.status);
         commit('setLoginUser', res.data);
-        commit('resetErrors', []);
+        commit('resetErrors');
       })
       .catch((err) => {
         commit('setErrors', err);
       });
+  },
+  async register({ commit }, data) {
+    await axios
+      .post('/api/register', data)
+      .then((res) => {
+        console.log(res.status);
+        commit('resetErrors');
+      })
+      .catch((err) => {
+        commit('setErrors', err);
+      });
+  },
+  async loginUser({ commit }) {
+    await axios.get('/api/login_user').then((res) => {
+      commit('setLoginUser', res.data.login_user);
+    });
   },
 };
 
