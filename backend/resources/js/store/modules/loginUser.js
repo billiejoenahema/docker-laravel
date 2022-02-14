@@ -22,15 +22,22 @@ const getters = {
 
 const actions = {
   async login({ commit }, data) {
-    await axios
-      .post('/api/login', data)
-      .then((res) => {
-        console.log(res.status);
-        commit('setLoginUser', res.data);
-        commit('resetErrors');
+    axios
+      .get('http://localhost:8080/sanctum/csrf-cookie', {
+        withCredentials: true,
       })
-      .catch((err) => {
-        commit('setErrors', err);
+      .then((res) => {
+        console.log(res);
+        axios
+          .post('/api/login', data)
+          .then((res) => {
+            console.log(res.status);
+            commit('setLoginUser', res.data);
+            commit('resetErrors');
+          })
+          .catch((err) => {
+            commit('setErrors', err);
+          });
       });
   },
   async register({ commit }, data) {
