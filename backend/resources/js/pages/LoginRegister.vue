@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -16,9 +16,16 @@ const newUser = reactive({
   email: '',
   password: '',
 });
+const showLoginForm = ref(true);
 
+onMounted(() => {
+  if (isLogin.value) {
+    router.push('/');
+  }
+});
+
+const isLogin = computed(() => store.getters['loginUser/isLogin']);
 const hasErrors = computed(() => store.getters['loginUser/hasErrors']);
-
 const login = async () => {
   await store.dispatch('loginUser/login', user);
   if (!hasErrors.value) {
@@ -34,7 +41,7 @@ const register = async () => {
 </script>
 
 <template>
-  <form class="column">
+  <form class="column" v-if="showLoginForm">
     <div class="row"><h4>ログイン</h4></div>
     <div class="column">
       <label for="login-email">メールアドレス</label>
@@ -43,13 +50,16 @@ const register = async () => {
     <div class="column">
       <label for="login-password">パスワード</label>
       <input v-model="user.password" id="login-password" type="password" />
+      <ul class="row">
+        <li class="button submit" @click="login">ログイン</li>
+      </ul>
     </div>
-    <ul class="row">
-      <li class="button submit" @click="login">ログイン</li>
-    </ul>
+    <div @click="showLoginForm = false" class="login-message">
+      アカウントをお持ちでない方はこちら新規登録
+    </div>
   </form>
 
-  <form class="column">
+  <form class="column" v-else>
     <div class="row"><h4>新規登録</h4></div>
     <div class="column">
       <label for="register-name">ユーザー名</label>
@@ -70,5 +80,8 @@ const register = async () => {
     <ul class="row">
       <li class="button submit" @click="register">登録する</li>
     </ul>
+    <div @click="showLoginForm = true" class="login-message">
+      アカウントをお持ちの方はこちらからログイン
+    </div>
   </form>
 </template>

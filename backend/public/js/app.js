@@ -19594,6 +19594,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       email: '',
       password: ''
     });
+    var showLoginForm = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
+      if (isLogin.value) {
+        router.push('/');
+      }
+    });
+    var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['loginUser/isLogin'];
+    });
     var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['loginUser/hasErrors'];
     });
@@ -19657,11 +19666,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       router: router,
       user: user,
       newUser: newUser,
+      showLoginForm: showLoginForm,
+      isLogin: isLogin,
       hasErrors: hasErrors,
       login: login,
       register: register,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
+      ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter
     };
@@ -19753,6 +19766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
+  key: 0,
   "class": "column"
 };
 
@@ -19783,6 +19797,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_7 = {
+  key: 1,
   "class": "column"
 };
 
@@ -19823,7 +19838,7 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return $setup.showLoginForm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.user.email = $event;
     }),
@@ -19839,13 +19854,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "password"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.user.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.user.password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
     "class": "row"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": "button submit",
     onClick: $setup.login
-  }, "ログイン")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+  }, "ログイン")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $setup.showLoginForm = false;
+    }),
+    "class": "login-message"
+  }, " アカウントをお持ちでない方はこちら新規登録 ")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $setup.newUser.name = $event;
     }),
     id: "register-name",
@@ -19853,7 +19873,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newUser.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $setup.newUser.email = $event;
     }),
     id: "register-email",
@@ -19861,7 +19881,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newUser.email]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $setup.newUser.password = $event;
     }),
     id: "register-password",
@@ -19873,9 +19893,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": "button submit",
     onClick: $setup.register
-  }, "登録する")])])], 64
-  /* STABLE_FRAGMENT */
-  );
+  }, "登録する")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    onClick: _cache[6] || (_cache[6] = function ($event) {
+      return $setup.showLoginForm = true;
+    }),
+    "class": "login-message"
+  }, " アカウントをお持ちの方はこちらからログイン ")]));
 }
 
 /***/ }),
