@@ -1,13 +1,8 @@
-.button {
-  height: 2rem;
-  width: 100% !important;
-  cursor: pointer;
+li.button.submit {
+  margin-top: 2rem;
 }
 .button:hover {
   opacity: 0.8;
-}
-li.button.submit {
-  background: #0d47a1;
 }
 .cancel {
   background: #cfd8dc;
