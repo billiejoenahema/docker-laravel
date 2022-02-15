@@ -13,7 +13,7 @@ const state = {
 
 const getters = {
   isLogin(state) {
-    return state.loginUser.id !== null;
+    return state.loginUser;
   },
   hasErrors(state) {
     return state.errors.length ?? false;
@@ -27,11 +27,11 @@ const actions = {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.status);
         axios
           .post('/api/login', data)
           .then((res) => {
-            console.log(res.status);
+            console.log(res.data);
             commit('setLoginUser', res.data);
             commit('resetErrors');
           })
@@ -52,9 +52,19 @@ const actions = {
       });
   },
   async loginUser({ commit }) {
-    await axios.get('/api/login_user').then((res) => {
-      commit('setLoginUser', res.data.login_user);
-    });
+    await axios
+      .get('/api/login_user')
+      .then((res) => {
+        commit('setLoginUser', res.data.login_user);
+      })
+      .catch((err) => {
+        commit('setErrors', err);
+        commit('setLoginUser', {});
+      });
+  },
+  async logout({ commit }) {
+    await axios.post('/api/logout');
+    commit('setLoginUser', {});
   },
 };
 
