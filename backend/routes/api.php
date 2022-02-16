@@ -20,7 +20,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー
     Route::post('/login_user', LoginUserController::class)->name('login_user');
 });

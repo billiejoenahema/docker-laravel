@@ -9,3 +9,13 @@
   align-items: center;
   width: 100%;
 }
+.column ul {
+  margin-left: 0;
+}
+.login-message {
+  text-align: right;
+  cursor: pointer;
+}
+.login-message:hover {
+  opacity: 0.8;
+}
