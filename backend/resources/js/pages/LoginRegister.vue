@@ -7,7 +7,6 @@ const store = useStore();
 const router = useRouter();
 
 const user = reactive({
-  name: '',
   email: '',
   password: '',
 });
@@ -15,6 +14,7 @@ const newUser = reactive({
   name: '',
   email: '',
   password: '',
+  password_confirmation: '',
 });
 const showLoginForm = ref(true);
 
@@ -45,11 +45,16 @@ const register = async () => {
     <div class="row"><h4>ログイン</h4></div>
     <div class="column">
       <label for="login-email">メールアドレス</label>
-      <input v-model="user.email" id="login-email" type="email" />
+      <input v-model="user.email" id="login-email" name="email" type="email" />
     </div>
     <div class="column">
       <label for="login-password">パスワード</label>
-      <input v-model="user.password" id="login-password" type="password" />
+      <input
+        v-model="user.password"
+        id="login-password"
+        name="password"
+        type="password"
+      />
       <ul class="row">
         <li class="button submit" @click="login">ログイン</li>
       </ul>
@@ -63,17 +68,37 @@ const register = async () => {
     <div class="row"><h4>新規登録</h4></div>
     <div class="column">
       <label for="register-name">ユーザー名</label>
-      <input v-model="newUser.name" id="register-name" type="text" />
+      <input
+        v-model="newUser.name"
+        id="register-name"
+        name="name"
+        type="text"
+      />
     </div>
     <div class="column">
       <label for="register-email">メールアドレス</label>
-      <input v-model="newUser.email" id="register-email" type="email" />
+      <input
+        v-model="newUser.email"
+        id="register-email"
+        name="email"
+        type="email"
+      />
     </div>
     <div class="column">
       <label for="register-password">パスワード</label>
       <input
         v-model="newUser.password"
         id="register-password"
+        name="password"
+        type="password"
+      />
+    </div>
+    <div class="column">
+      <label for="register-password-confirm">パスワード確認</label>
+      <input
+        v-model="newUser.password_confirmation"
+        id="register-password-confirm"
+        name="password_confirmation"
         type="password"
       />
     </div>

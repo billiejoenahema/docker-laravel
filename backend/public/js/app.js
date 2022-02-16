@@ -19585,14 +19585,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
     var user = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
-      name: '',
       email: '',
       password: ''
     });
     var newUser = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       name: '',
       email: '',
-      password: ''
+      password: '',
+      password_confirmation: ''
     });
     var showLoginForm = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
@@ -19837,12 +19837,23 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
+var _hoisted_15 = {
+  "class": "column"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "register-password-confirm"
+}, "パスワード確認", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return $setup.showLoginForm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.user.email = $event;
     }),
     id: "login-email",
+    name: "email",
     type: "email"
   }, null, 512
   /* NEED_PATCH */
@@ -19851,6 +19862,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.user.password = $event;
     }),
     id: "login-password",
+    name: "password",
     type: "password"
   }, null, 512
   /* NEED_PATCH */
@@ -19869,6 +19881,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.newUser.name = $event;
     }),
     id: "register-name",
+    name: "name",
     type: "text"
   }, null, 512
   /* NEED_PATCH */
@@ -19877,6 +19890,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.newUser.email = $event;
     }),
     id: "register-email",
+    name: "email",
     type: "email"
   }, null, 512
   /* NEED_PATCH */
@@ -19885,16 +19899,26 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.newUser.password = $event;
     }),
     id: "register-password",
+    name: "password",
     type: "password"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newUser.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newUser.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+      return $setup.newUser.password_confirmation = $event;
+    }),
+    id: "register-password-confirm",
+    name: "password_confirmation",
+    type: "password"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newUser.password_confirmation]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
     "class": "row"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     "class": "button submit",
     onClick: $setup.register
   }, "登録する")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    onClick: _cache[6] || (_cache[6] = function ($event) {
+    onClick: _cache[7] || (_cache[7] = function ($event) {
       return $setup.showLoginForm = true;
     }),
     "class": "login-message"
