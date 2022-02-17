@@ -16,7 +16,7 @@ class LoginUserController extends Controller
      */
     public function __invoke()
     {
-        $login_user = User::findOrFail(Auth::id());
-        return new LoginUserResource($login_user);
+        $loginUser = User::findOrFail(Auth::id());
+        return new LoginUserResource($loginUser);
     }
 }
