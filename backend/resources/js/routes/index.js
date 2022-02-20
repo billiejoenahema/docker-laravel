@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Hello from '../pages/Hello';
+import TopPage from '../pages/TopPage';
 import LoginRegister from '../pages/LoginRegister';
 
 const routes = [
   {
     path: '/',
-    component: Hello,
+    component: TopPage,
   },
   {
     path: '/login',
