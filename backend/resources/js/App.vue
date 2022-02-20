@@ -1,4 +1,5 @@
 <script setup>
+import TheFooter from './components/TheFooter';
 import TheHeader from './components/TheHeader';
 </script>
 
@@ -9,7 +10,7 @@ import TheHeader from './components/TheHeader';
   <main>
     <router-view />
   </main>
-  <footer>footer</footer>
+  <footer><TheFooter /></footer>
 </template>
 
 <style>
