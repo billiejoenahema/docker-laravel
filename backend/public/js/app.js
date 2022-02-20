@@ -19495,7 +19495,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    store.dispatch('loginUser/loginUser');
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
+      store.dispatch('loginUser/loginUser');
+    });
+    var loginUser = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['loginUser/loginUser'];
+    });
     var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['loginUser/hasErrors'];
     });
@@ -19513,14 +19518,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return store.dispatch('loginUser/logout');
 
               case 2:
-                console.log(hasErrors.value);
-
                 if (!hasErrors.value) {
-                  router.push('/');
                   store.dispatch('loginUser/loginUser');
+                  router.push('/');
                 }
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -19536,10 +19539,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var __returned__ = {
       store: store,
       router: router,
+      loginUser: loginUser,
       hasErrors: hasErrors,
       isLogin: isLogin,
       logout: logout,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter
     };
@@ -19596,7 +19601,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
     var showLoginForm = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
-      if (isLogin.value) {
+      if (isLogin.value === true) {
         router.push('/');
       }
     });
@@ -19618,6 +19623,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 if (!hasErrors.value) {
+                  store.dispatch('loginUser/loginUser');
                   router.push('/');
                 }
 
@@ -19734,7 +19740,11 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, "あなたはログインしています。")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, "あなたはログインしていません。")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return $setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.loginUser.name), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    onClick: $setup.logout
+  }, "ログアウト")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/login"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -19743,11 +19753,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: $setup.logout
-  }, "ログアウト")], 64
-  /* STABLE_FRAGMENT */
-  );
+  })]));
 }
 
 /***/ }),
@@ -20090,17 +20096,17 @@ var state = {
     email: '',
     createdAt: null
   },
-  errors: [],
-  hasErrors: false
+  errors: []
 };
 var getters = {
-  isLogin: function isLogin(state) {
+  loginUser: function loginUser(state) {
     return state.loginUser;
   },
+  isLogin: function isLogin(state) {
+    return Object.values(state.loginUser).length ? true : false;
+  },
   hasErrors: function hasErrors(state) {
-    var _state$errors$length;
-
-    return (_state$errors$length = state.errors.length) !== null && _state$errors$length !== void 0 ? _state$errors$length : false;
+    return state.errors.length ? true : false;
   }
 };
 var actions = {
@@ -20117,11 +20123,11 @@ var actions = {
               }).then(function (res) {
                 console.log(res.status);
                 axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/login', data).then(function (res) {
-                  console.log(res.data);
-                  commit('setLoginUser', res.data);
-                  commit('resetErrors');
+                  console.log(res.status);
+                  commit('setErrors', []);
                 })["catch"](function (err) {
-                  commit('setErrors', err);
+                  console.log(err.message);
+                  commit('setErrors', err.message);
                 });
               });
 
@@ -20144,8 +20150,9 @@ var actions = {
               _context2.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', data).then(function (res) {
                 console.log(res.status);
-                commit('resetErrors');
+                commit('setErrors', []);
               })["catch"](function (err) {
+                console.log(err);
                 commit('setErrors', err);
               });
 
@@ -20165,15 +20172,17 @@ var actions = {
           switch (_context3.prev = _context3.next) {
             case 0:
               commit = _ref3.commit;
-              _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/login_user').then(function (res) {
-                commit('setLoginUser', res.data.login_user);
+              axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/login_user').then(function (res) {
+                console.log(res.data.data);
+                commit('setErrors', []);
+                commit('setLoginUser', res.data.data);
               })["catch"](function (err) {
-                commit('setErrors', err);
+                console.log(err.message);
+                commit('setErrors', err.message);
                 commit('setLoginUser', {});
               });
 
-            case 3:
+            case 2:
             case "end":
               return _context3.stop();
           }
@@ -20208,8 +20217,8 @@ var mutations = {
   setLoginUser: function setLoginUser(state, data) {
     state.loginUser = data;
   },
-  resetErrors: function resetErrors(state) {
-    state.errors = [];
+  setErrors: function setErrors(state, data) {
+    state.errors = data;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({

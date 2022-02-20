@@ -8,15 +8,17 @@ const state = {
     createdAt: null,
   },
   errors: [],
-  hasErrors: false,
 };
 
 const getters = {
-  isLogin(state) {
+  loginUser(state) {
     return state.loginUser;
   },
+  isLogin(state) {
+    return Object.values(state.loginUser).length ? true : false;
+  },
   hasErrors(state) {
-    return state.errors.length ?? false;
+    return state.errors.length ? true : false;
   },
 };
 
@@ -31,12 +33,12 @@ const actions = {
         axios
           .post('/api/login', data)
           .then((res) => {
-            console.log(res.data);
-            commit('setLoginUser', res.data);
-            commit('resetErrors');
+            console.log(res.status);
+            commit('setErrors', []);
           })
           .catch((err) => {
-            commit('setErrors', err);
+            console.log(err.message);
+            commit('setErrors', err.message);
           });
       });
   },
@@ -45,20 +47,24 @@ const actions = {
       .post('/api/register', data)
       .then((res) => {
         console.log(res.status);
-        commit('resetErrors');
+        commit('setErrors', []);
       })
       .catch((err) => {
+        console.log(err);
         commit('setErrors', err);
       });
   },
   async loginUser({ commit }) {
-    await axios
+    axios
       .get('/api/login_user')
       .then((res) => {
-        commit('setLoginUser', res.data.login_user);
+        console.log(res.data.data);
+        commit('setErrors', []);
+        commit('setLoginUser', res.data.data);
       })
       .catch((err) => {
-        commit('setErrors', err);
+        console.log(err.message);
+        commit('setErrors', err.message);
         commit('setLoginUser', {});
       });
   },
@@ -72,8 +78,8 @@ const mutations = {
   setLoginUser(state, data) {
     state.loginUser = data;
   },
-  resetErrors(state) {
-    state.errors = [];
+  setErrors(state, data) {
+    state.errors = data;
   },
 };
 
