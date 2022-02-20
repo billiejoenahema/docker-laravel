@@ -15,7 +15,7 @@ const getters = {
     return state.loginUser;
   },
   isLogin(state) {
-    return Object.values(state.loginUser).length ? true : false;
+    return state.loginUser.length ? true : false;
   },
   hasErrors(state) {
     return state.errors.length ? true : false;
