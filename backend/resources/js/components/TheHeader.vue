@@ -25,10 +25,7 @@ const logout = async () => {
 
 <template>
   <nav>
-    <a href="#" @click.prevent.stop>{{ loginUser.name }}</a>
+    <a href="#" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
     <a href="#" v-if="isLogin" @click.prevent.stop="logout"> ログアウト </a>
-    <a href="#" v-else @click.prevent.stop>
-      <router-link to="/login">Login</router-link>
-    </a>
   </nav>
 </template>
