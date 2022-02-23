@@ -15,7 +15,7 @@ const getters = {
     return state.loginUser;
   },
   isLogin(state) {
-    return state.loginUser.length ? true : false;
+    return state.loginUser.id ? true : false;
   },
   hasErrors(state) {
     return state.errors.length ? true : false;
@@ -34,7 +34,7 @@ const actions = {
           .post('/api/login', data)
           .then((res) => {
             console.log(res.status);
-            commit('setErrors', []);
+            commit('resetErrors');
           })
           .catch((err) => {
             console.log(err.message);
@@ -47,7 +47,7 @@ const actions = {
       .post('/api/register', data)
       .then((res) => {
         console.log(res.status);
-        commit('setErrors', []);
+        commit('resetErrors');
       })
       .catch((err) => {
         console.log(err);
@@ -58,8 +58,7 @@ const actions = {
     axios
       .get('/api/login_user')
       .then((res) => {
-        console.log(res.data.data);
-        commit('setErrors', []);
+        commit('resetErrors');
         commit('setLoginUser', res.data.data);
       })
       .catch((err) => {
@@ -79,7 +78,11 @@ const mutations = {
     state.loginUser = data;
   },
   setErrors(state, data) {
-    state.errors = data;
+    state.errors = [];
+    state.errors.push(data);
+  },
+  resetErrors(state) {
+    state.errors = [];
   },
 };
 
