@@ -12,13 +12,16 @@ const state = {
 
 const getters = {
   loginUser(state) {
-    return state.loginUser;
+    return state.loginUser ?? {};
   },
   isLogin(state) {
     return state.loginUser.id ? true : false;
   },
   hasErrors(state) {
     return state.errors.length ? true : false;
+  },
+  errors(state) {
+    return state.errors ?? [];
   },
 };
 
@@ -34,6 +37,7 @@ const actions = {
           .post('/api/login', data)
           .then((res) => {
             console.log(res.status);
+            commit('setLoginUser', res.data);
             commit('resetErrors');
           })
           .catch((err) => {
@@ -83,6 +87,7 @@ const mutations = {
   },
   resetErrors(state) {
     state.errors = [];
+    state.hasErrors = false;
   },
 };
 

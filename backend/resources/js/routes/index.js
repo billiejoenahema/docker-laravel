@@ -7,6 +7,9 @@ const routes = [
   {
     path: '/',
     component: TopPage,
+    meta: {
+      isAuthenticated: true,
+    },
   },
   {
     path: '/login',

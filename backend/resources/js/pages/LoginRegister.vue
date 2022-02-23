@@ -26,6 +26,7 @@ onMounted(() => {
 
 const isLogin = computed(() => store.getters['loginUser/isLogin']);
 const hasErrors = computed(() => store.getters['loginUser/hasErrors']);
+const errors = computed(() => store.getters['loginUser/errors']);
 const login = async () => {
   await store.dispatch('loginUser/login', user);
   if (!hasErrors.value) {
@@ -55,6 +56,7 @@ const register = async () => {
         name="password"
         type="password"
       />
+      <div v-for="(error, index) in errors" :key="index">error{{ error }}</div>
       <ul class="row">
         <li class="button submit" @click="login">ログイン</li>
       </ul>
