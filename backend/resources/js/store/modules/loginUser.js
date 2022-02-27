@@ -7,6 +7,7 @@ const state = {
     email: '',
     createdAt: null,
   },
+  isLogin: false,
   errors: [],
 };
 
@@ -15,7 +16,7 @@ const getters = {
     return state.loginUser ?? {};
   },
   isLogin(state) {
-    return state.loginUser.id ? true : false;
+    return state.isLogin;
   },
   hasErrors(state) {
     return state.errors.length ? true : false;
@@ -32,6 +33,7 @@ const actions = {
       .then((res) => {
         commit('resetErrors');
         commit('setLoginUser', res.data.data);
+        commit('setIsLogin');
       })
       .catch((err) => {
         console.log(err);
@@ -44,6 +46,9 @@ const actions = {
 const mutations = {
   setLoginUser(state, data) {
     state.loginUser = data;
+  },
+  setIsLogin(state) {
+    state.isLogin = true;
   },
   setErrors(state, data) {
     state.errors = [];

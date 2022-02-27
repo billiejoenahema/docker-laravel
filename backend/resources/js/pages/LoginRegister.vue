@@ -17,11 +17,11 @@ const newUser = reactive({
   password_confirmation: '',
 });
 const showLoginForm = ref(true);
-
 const hasErrors = computed(() => store.getters['auth/hasErrors']);
 const errors = computed(() => store.getters['auth/errors']);
 const login = async () => {
   await store.dispatch('auth/login', user);
+  await store.dispatch('loginUser/get');
   if (!hasErrors.value) {
     router.push('/');
   }

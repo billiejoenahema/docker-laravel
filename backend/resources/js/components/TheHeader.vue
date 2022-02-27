@@ -1,15 +1,24 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
 
-store.dispatch('loginUser/get');
 const loginUser = computed(() => store.getters['loginUser/loginUser']);
 const hasErrors = computed(() => store.getters['loginUser/hasErrors']);
 const isLogin = computed(() => store.getters['loginUser/isLogin']);
+
+onMounted(async () => {
+  await store.dispatch('loginUser/get');
+  if (isLogin.value) {
+    router.push('/');
+  } else {
+    router.push('/login');
+  }
+});
+
 const logout = async () => {
   await store.dispatch('auth/logout');
   if (!hasErrors.value) {

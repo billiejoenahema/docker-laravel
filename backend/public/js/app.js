@@ -19528,7 +19528,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    store.dispatch('loginUser/get');
     var loginUser = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['loginUser/loginUser'];
     });
@@ -19538,14 +19537,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['loginUser/isLogin'];
     });
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return store.dispatch('loginUser/get');
+
+            case 2:
+              if (isLogin.value) {
+                router.push('/');
+              } else {
+                router.push('/login');
+              }
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
 
     var logout = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return store.dispatch('auth/logout');
 
               case 2:
@@ -19555,14 +19576,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       return function logout() {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
 
@@ -19579,6 +19600,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       logout: logout,
       toHome: toHome,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter
     };
@@ -19651,11 +19673,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return store.dispatch('auth/login', user);
 
               case 2:
+                _context.next = 4;
+                return store.dispatch('loginUser/get');
+
+              case 4:
                 if (!hasErrors.value) {
                   router.push('/');
                 }
 
-              case 3:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -19735,26 +19761,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
- // import { useRouter } from 'vue-router';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)(); // const router = useRouter();
-
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['loginUser/isLogin'];
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {//   if (!isLogin.value) {
-      //     router.push('/login');
-      //   }
     });
     var __returned__ = {
       store: store,
       isLogin: isLogin,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_1__.useStore
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -20430,6 +20449,7 @@ var state = {
     email: '',
     createdAt: null
   },
+  isLogin: false,
   errors: []
 };
 var getters = {
@@ -20439,7 +20459,7 @@ var getters = {
     return (_state$loginUser = state.loginUser) !== null && _state$loginUser !== void 0 ? _state$loginUser : {};
   },
   isLogin: function isLogin(state) {
-    return state.loginUser.id ? true : false;
+    return state.isLogin;
   },
   hasErrors: function hasErrors(state) {
     return state.errors.length ? true : false;
@@ -20463,6 +20483,7 @@ var actions = {
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/login_user').then(function (res) {
                 commit('resetErrors');
                 commit('setLoginUser', res.data.data);
+                commit('setIsLogin');
               })["catch"](function (err) {
                 console.log(err);
                 commit('setErrors', err.message);
@@ -20481,6 +20502,9 @@ var actions = {
 var mutations = {
   setLoginUser: function setLoginUser(state, data) {
     state.loginUser = data;
+  },
+  setIsLogin: function setIsLogin(state) {
+    state.isLogin = true;
   },
   setErrors: function setErrors(state, data) {
     state.errors = [];
