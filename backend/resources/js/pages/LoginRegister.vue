@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -18,23 +18,16 @@ const newUser = reactive({
 });
 const showLoginForm = ref(true);
 
-onMounted(() => {
-  if (isLogin.value) {
-    router.push('/');
-  }
-});
-
-const isLogin = computed(() => store.getters['loginUser/isLogin']);
-const hasErrors = computed(() => store.getters['loginUser/hasErrors']);
-const errors = computed(() => store.getters['loginUser/errors']);
+const hasErrors = computed(() => store.getters['auth/hasErrors']);
+const errors = computed(() => store.getters['auth/errors']);
 const login = async () => {
-  await store.dispatch('loginUser/login', user);
+  await store.dispatch('auth/login', user);
   if (!hasErrors.value) {
     router.push('/');
   }
 };
 const register = async () => {
-  await store.dispatch('loginUser/register', newUser);
+  await store.dispatch('auth/register', newUser);
   if (!hasErrors.value) {
     router.push('/');
   }
@@ -56,9 +49,11 @@ const register = async () => {
         name="password"
         type="password"
       />
-      <div v-for="(error, index) in errors" :key="index">error{{ error }}</div>
+      <div v-for="(error, index) in errors" :key="index">
+        {{ !error.includes('401') ? error : '' }}
+      </div>
       <ul class="row">
-        <li class="button submit" @click="login">ログイン</li>
+        <li class="button submit" @click.prevent.stop="login">ログイン</li>
       </ul>
     </div>
     <div @click="showLoginForm = false" class="login-message">
@@ -105,7 +100,7 @@ const register = async () => {
       />
     </div>
     <ul class="row">
-      <li class="button submit" @click="register">登録する</li>
+      <li class="button submit" @click.prevent.stop="register">登録する</li>
     </ul>
     <div @click="showLoginForm = true" class="login-message">
       アカウントをお持ちの方はこちらからログイン

@@ -5,9 +5,8 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-onMounted(async () => {
-  await store.dispatch('loginUser/loginUser');
-  const isLogin = computed(() => store.getters['loginUser/isLogin']);
+const isLogin = computed(() => store.getters['loginUser/isLogin']);
+onMounted(() => {
   if (!isLogin.value) {
     router.push('/login');
   }
@@ -15,4 +14,5 @@ onMounted(async () => {
 </script>
 <template>
   <div>Top Page</div>
+  <div>{{ isLogin }}</div>
 </template>
