@@ -1,11 +1,12 @@
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-
-const store = useStore();
-const isLogin = computed(() => store.getters['loginUser/isLogin']);
+import CreateMemo from '../components/CreateMemo';
+import MemoList from '../components/MemoList';
+import TagList from '../components/TagList';
 </script>
 <template>
-  <div>Top Page</div>
-  <div>{{ isLogin }}</div>
+  <div class="container">
+    <TagList />
+    <MemoList />
+    <CreateMemo />
+  </div>
 </template>

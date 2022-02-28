@@ -86,6 +86,49 @@ li.button.submit {
   background: #b71c1c;
 }
 
+#body {
+  grid-template-columns: none;
+  display: block;
+}
+
+main {
+  margin: 0;
+}
+
+main > .container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+#tag-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+#memo-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+#create-memo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.list-body {
+  background: #474747;
+  height: 100%;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
