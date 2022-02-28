@@ -87,7 +87,7 @@ li.button.submit {
 }
 
 #body {
-  grid-template-columns: none;
+  grid-template-columns: none !important;
   display: block;
 }
 
@@ -99,24 +99,13 @@ main > .container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 1rem;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1080px;
 }
 
-#tag-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-}
-
-#memo-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-}
-
+#tag-list,
+#memo-list,
 #create-memo {
   display: flex;
   flex-direction: column;
@@ -124,11 +113,26 @@ main > .container {
   height: 100vh;
 }
 
+.list-title {
+  padding: 1rem;
+}
+
 .list-body {
   background: #474747;
   height: 100%;
+  padding: 1rem;
 }
 
+.list-body > li {
+  list-style: none;
+}
+
+@media (max-width: 767px) {
+  #body > #app > main > .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
