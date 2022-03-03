@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 紐づくメモ一覧を取得する
+     */
+    public function memos()
+    {
+        return $this->hasMany(Memo::class);
+    }
 }

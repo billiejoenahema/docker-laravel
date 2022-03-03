@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginUserController;
+use App\Http\Controllers\Api\MemoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -23,4 +24,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー
     Route::get('/login_user', LoginUserController::class)->name('login_user');
+    // メモ
+    Route::get('/memos', [MemoController::class, 'index'])->name('index');
 });

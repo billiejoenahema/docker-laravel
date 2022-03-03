@@ -29,4 +29,20 @@ class Memo extends Model
 
         return $memos;
     }
+
+    /**
+     * 紐づくユーザーを取得する
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * 紐づくタグ一覧を取得する
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'memo_tags');
+    }
 }
