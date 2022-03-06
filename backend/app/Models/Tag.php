@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
+    /**
+     * 紐づくメモ一覧を取得する
+     */
+    public function memos()
+    {
+        return $this->belongsToMany(Memo::class, 'memo_tags');
+    }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginUserController;
 use App\Http\Controllers\Api\MemoController;
+use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -26,4 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/login_user', LoginUserController::class)->name('login_user');
     // メモ
     Route::get('/memos', [MemoController::class, 'index'])->name('index');
+    // タグ
+    Route::get('/tags', [TagController::class, 'index'])->name('index');
 });
