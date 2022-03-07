@@ -18,15 +18,16 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // ログインユーザー
-    Route::get('/login_user', LoginUserController::class)->name('login_user');
+    Route::get('/login_user', LoginUserController::class);
     // メモ
-    Route::get('/memos', [MemoController::class, 'index'])->name('index');
+    Route::get('/memos', [MemoController::class, 'index']);
     // タグ
-    Route::get('/tags', [TagController::class, 'index'])->name('index');
+    Route::get('/tags', [TagController::class, 'index']);
+    Route::post('/tags', [TagController::class, 'store']);
 });

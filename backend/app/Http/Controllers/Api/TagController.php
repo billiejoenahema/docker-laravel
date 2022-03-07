@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tag\StoreRequest;
 use App\Http\Resources\Api\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return TagResource
      */
     public function index()
     {
@@ -25,12 +26,18 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRequest
+     * @return TagResource
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        dump($request);
+        $tag = Tag::create([
+            'name' => $request['name'],
+            'user_id' => Auth::user()->id
+        ]);
+
+        return new TagResource($tag);
     }
 
     /**
