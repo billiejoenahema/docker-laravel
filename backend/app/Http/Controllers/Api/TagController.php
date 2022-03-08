@@ -31,7 +31,6 @@ class TagController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        dump($request);
         $tag = Tag::create([
             'name' => $request['name'],
             'user_id' => Auth::user()->id
