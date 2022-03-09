@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -11,19 +11,30 @@ const memo = reactive({
 const newTag = reactive({
   name: '',
 });
+const MAX_LENGTH = {
+  content: 200,
+  tag: 20,
+};
 const tags = computed(() => store.getters['tags/data']);
 const selected = ref(0);
-const isDisabled = ref(true);
 const addNewTag = async () => {
   await store.dispatch('tags/post', newTag);
   await store.dispatch('tags/get');
   const addedTag = computed(() => store.getters['tags/addedTag']);
   selected.value = addedTag.value.id;
-  newTag.value = [];
+  newTag.name = '';
 };
 const storeNewMemo = () => {
   store.dispatch('memos/post');
 };
+const isOver = ref(false);
+watchEffect(() => {
+  if (MAX_LENGTH.content < memo.content.length) {
+    isOver.value = true;
+  } else {
+    isOver.value = false;
+  }
+});
 </script>
 <template>
   <div id="create-memo">
@@ -35,7 +46,11 @@ const storeNewMemo = () => {
         placeholder="ここにメモを入力"
         v-model="memo.content"
       ></textarea>
-      <div class="alert alert-danger"></div>
+      <p class="text-length">
+        <span :class="{ error: isOver }">{{ memo.content.length ?? 0 }}</span>
+        /
+        {{ MAX_LENGTH.content }}
+      </p>
       <div>
         <label for="tag-select">Choose a tag:</label>
         <select name="tags" id="tag-select">
@@ -56,13 +71,14 @@ const storeNewMemo = () => {
         v-model="newTag.name"
         placeholder="新しいタグを入力"
       />
-      <button @click.prevent="addNewTag" :disabled="newTag.name === ''">
+      <button @click.prevent="addNewTag" v-show="newTag.name !== ''">
         タグを追加する
       </button>
       <button
         type="submit"
         @click.prevent="storeNewMemo()"
-        :disabled="isDisabled"
+        v-show="memo.content !== ''"
+        :disabled="isOver"
       >
         メモを保存
       </button>
