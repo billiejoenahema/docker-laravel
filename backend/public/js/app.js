@@ -19524,16 +19524,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var memo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       content: '',
-      tag_id: null
+      tag_id: 0
     });
     var newTag = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       name: ''
     });
+    var MAX_LENGTH = {
+      content: 200,
+      tag: 20
+    };
     var tags = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['tags/data'];
     });
     var selected = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(0);
-    var isDisabled = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
 
     var addNewTag = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -19554,7 +19557,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return store.getters['tags/addedTag'];
                 });
                 selected.value = addedTag.value.id;
-                newTag.value = [];
+                newTag.name = '';
 
               case 7:
               case "end":
@@ -19573,18 +19576,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       store.dispatch('memos/post');
     };
 
+    var isOver = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.watchEffect)(function () {
+      if (MAX_LENGTH.content < memo.content.length) {
+        isOver.value = true;
+      } else {
+        isOver.value = false;
+      }
+    });
     var __returned__ = {
       store: store,
       memo: memo,
       newTag: newTag,
+      MAX_LENGTH: MAX_LENGTH,
       tags: tags,
       selected: selected,
-      isDisabled: isDisabled,
       addNewTag: addNewTag,
       storeNewMemo: storeNewMemo,
+      isOver: isOver,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
+      watchEffect: vue__WEBPACK_IMPORTED_MODULE_1__.watchEffect,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -20012,12 +20025,9 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_3 = {
   "class": "list-body"
 };
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "alert alert-danger"
-}, null, -1
-/* HOISTED */
-);
+var _hoisted_4 = {
+  "class": "text-length"
+};
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "tag-select"
@@ -20025,21 +20035,18 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_6 = {
-  name: "tags",
-  id: "tag-select"
-};
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: ""
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "0"
 }, "タグを選択", -1
 /* HOISTED */
 );
 
-var _hoisted_8 = ["value", "selected"];
-var _hoisted_9 = ["onClick", "disabled"];
-var _hoisted_10 = ["disabled"];
+var _hoisted_7 = ["value", "selected"];
+var _hoisted_8 = ["onClick"];
+var _hoisted_9 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$setup$memo$content$;
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     name: "content",
     rows: "3",
@@ -20049,39 +20056,54 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.memo.content]]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", _hoisted_6, [_hoisted_7, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.tags, function (tag, index) {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.memo.content]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      error: $setup.isOver
+    })
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$memo$content$ = $setup.memo.content.length) !== null && _$setup$memo$content$ !== void 0 ? _$setup$memo$content$ : 0), 3
+  /* TEXT, CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.MAX_LENGTH.content), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    name: "tags",
+    id: "tag-select",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.memo.tag_id = $event;
+    })
+  }, [_hoisted_6, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.tags, function (tag, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: index,
       value: tag.id,
       selected: $setup.selected
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(tag.name), 9
     /* TEXT, PROPS */
-    , _hoisted_8);
+    , _hoisted_7);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ))], 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.memo.tag_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "new_tag",
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $setup.newTag.name = $event;
     }),
     placeholder: "新しいタグを入力"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newTag.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.addNewTag, ["prevent"]),
-    disabled: $setup.newTag.name === ''
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newTag.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.addNewTag, ["prevent"])
   }, " タグを追加する ", 8
   /* PROPS */
-  , _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.newTag.name !== '']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.storeNewMemo();
     }, ["prevent"])),
-    disabled: $setup.isDisabled
+    disabled: $setup.isOver || $setup.memo.tag_id === 0
   }, " メモを保存 ", 8
   /* PROPS */
-  , _hoisted_10)])]);
+  , _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.memo.content !== '']])])]);
 }
 
 /***/ }),

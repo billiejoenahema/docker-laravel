@@ -6,7 +6,7 @@ const store = useStore();
 
 const memo = reactive({
   content: '',
-  tag_id: null,
+  tag_id: 0,
 });
 const newTag = reactive({
   name: '',
@@ -53,8 +53,8 @@ watchEffect(() => {
       </p>
       <div>
         <label for="tag-select">Choose a tag:</label>
-        <select name="tags" id="tag-select">
-          <option value="">タグを選択</option>
+        <select name="tags" id="tag-select" v-model="memo.tag_id">
+          <option value="0">タグを選択</option>
           <option
             v-for="(tag, index) in tags"
             :key="index"
@@ -78,7 +78,7 @@ watchEffect(() => {
         type="submit"
         @click.prevent="storeNewMemo()"
         v-show="memo.content !== ''"
-        :disabled="isOver"
+        :disabled="isOver || memo.tag_id === 0"
       >
         メモを保存
       </button>
