@@ -19537,6 +19537,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return store.getters['tags/data'];
     });
     var selected = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(0);
+    var errors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['memos/errors'];
+    });
 
     var addNewTag = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -19572,9 +19575,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
-    var storeNewMemo = function storeNewMemo() {
-      store.dispatch('memos/post');
-    };
+    var storeNewMemo = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return store.dispatch('memos/post', memo);
+
+              case 2:
+                if (!errors.value.length) {
+                  memo.content = '';
+                  selected.value = 0;
+                  store.dispatch('memos/get');
+                }
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function storeNewMemo() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
 
     var isOver = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.watchEffect)(function () {
@@ -19591,6 +19619,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       MAX_LENGTH: MAX_LENGTH,
       tags: tags,
       selected: selected,
+      errors: errors,
       addNewTag: addNewTag,
       storeNewMemo: storeNewMemo,
       isOver: isOver,
@@ -20899,11 +20928,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var state = {
-  data: []
+  data: [],
+  errors: []
 };
 var getters = {
   data: function data(state) {
-    return state.data;
+    var _state$data;
+
+    return (_state$data = state.data) !== null && _state$data !== void 0 ? _state$data : [];
+  },
+  errors: function errors(state) {
+    var _state$errors;
+
+    return (_state$errors = state.errors) !== null && _state$errors !== void 0 ? _state$errors : [];
   }
 };
 var actions = {
@@ -20929,6 +20966,31 @@ var actions = {
           }
         }
       }, _callee);
+    }))();
+  },
+  post: function post(_ref2, memo) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/memos', memo).then(function (res) {
+                commit('resetErrors', []);
+                console.log(res.data.data);
+              })["catch"](function (err) {
+                console.log(err.message);
+                commit('setErrors', err.message);
+              });
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
     }))();
   }
 };

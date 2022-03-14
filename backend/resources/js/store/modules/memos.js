@@ -2,11 +2,15 @@ import axios from 'axios';
 
 const state = {
   data: [],
+  errors: [],
 };
 
 const getters = {
   data(state) {
-    return state.data;
+    return state.data ?? [];
+  },
+  errors(state) {
+    return state.errors ?? [];
   },
 };
 
@@ -19,6 +23,18 @@ const actions = {
         commit('setData', res.data);
       })
       .catch((err) => {
+        commit('setErrors', err.message);
+      });
+  },
+  async post({ commit }, memo) {
+    await axios
+      .post('/api/memos', memo)
+      .then((res) => {
+        commit('resetErrors', []);
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
         commit('setErrors', err.message);
       });
   },

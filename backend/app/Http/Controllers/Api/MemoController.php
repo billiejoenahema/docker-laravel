@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Resources\Api\MemoResource;
 use App\Models\Memo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MemoController extends Controller
 {
@@ -17,8 +19,7 @@ class MemoController extends Controller
      */
     public function index(Request $request)
     {
-
-        $query = Memo::with('tags')->where('user_id', '=', 1);
+        $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
         $memos = $query->get();
         return MemoResource::collection($memos);
     }
@@ -26,12 +27,22 @@ class MemoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRequest  $request
+     * @return MemoResource
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $memo = DB::transaction(function () use ($request) {
+            $memo = Memo::create([
+                'content' => $request['content'],
+                'user_id' => Auth::user()->id,
+            ]);
+            $memo->tags()->attach($request['tag_id']);
+
+            return $memo;
+        });
+
+        return new MemoResource($memo);
     }
 
     /**

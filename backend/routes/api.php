@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/login_user', LoginUserController::class);
     // メモ
     Route::get('/memos', [MemoController::class, 'index']);
+    Route::post('/memos', [MemoController::class, 'store']);
     // タグ
     Route::get('/tags', [TagController::class, 'index']);
     Route::post('/tags', [TagController::class, 'store']);

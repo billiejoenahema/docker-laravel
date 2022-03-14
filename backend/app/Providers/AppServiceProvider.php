@@ -27,20 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('*', function ($view) {
-
-            $memo_model = new Memo();
-
-            // get memo list
-            $memos = $memo_model->getMyMemo();
-
-            // get all tag
-            $tags = Tag::where('user_id', '=', \Auth::id())
-                ->whereNull('deleted_at')
-                ->orderBy('id', 'DESC')
-                ->get();
-
-            $view->with('memos', $memos)->with('tags', $tags);
-        });
+        //
     }
 }

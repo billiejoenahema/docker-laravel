@@ -17,6 +17,7 @@ const MAX_LENGTH = {
 };
 const tags = computed(() => store.getters['tags/data']);
 const selected = ref(0);
+const errors = computed(() => store.getters['memos/errors']);
 const addNewTag = async () => {
   await store.dispatch('tags/post', newTag);
   await store.dispatch('tags/get');
@@ -24,8 +25,13 @@ const addNewTag = async () => {
   selected.value = addedTag.value.id;
   newTag.name = '';
 };
-const storeNewMemo = () => {
-  store.dispatch('memos/post');
+const storeNewMemo = async () => {
+  await store.dispatch('memos/post', memo);
+  if (!errors.value.length) {
+    memo.content = '';
+    selected.value = 0;
+    store.dispatch('memos/get');
+  }
 };
 const isOver = ref(false);
 watchEffect(() => {
