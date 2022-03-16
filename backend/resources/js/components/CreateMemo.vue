@@ -46,31 +46,30 @@ watchEffect(() => {
   <div id="create-memo">
     <div class="list-title">新規メモ作成</div>
     <div class="list-body">
-      <textarea
-        name="content"
-        rows="3"
-        placeholder="ここにメモを入力"
-        v-model="memo.content"
-      ></textarea>
-      <p class="text-length">
-        <span :class="{ error: isOver }">{{ memo.content.length ?? 0 }}</span>
-        /
-        {{ MAX_LENGTH.content }}
-      </p>
-      <div>
-        <label for="tag-select">Choose a tag:</label>
-        <select name="tags" id="tag-select" v-model="memo.tag_id">
-          <option value="0">タグを選択</option>
-          <option
-            v-for="(tag, index) in tags"
-            :key="index"
-            :value="tag.id"
-            :selected="selected"
-          >
-            {{ tag.name }}
-          </option>
-        </select>
+      <div class="memo-input-area">
+        <textarea
+          name="content"
+          rows="3"
+          placeholder="ここにメモを入力"
+          v-model="memo.content"
+        ></textarea>
+        <div class="text-length" :class="{ error: isOver }">
+          {{ memo.content.length ?? 0 }}
+          /
+          {{ MAX_LENGTH.content }}
+        </div>
       </div>
+      <select name="tags" v-model="memo.tag_id">
+        <option value="0">タグを選択</option>
+        <option
+          v-for="(tag, index) in tags"
+          :key="index"
+          :value="tag.id"
+          :selected="selected"
+        >
+          {{ tag.name }}
+        </option>
+      </select>
       <input
         type="text"
         name="new_tag"
