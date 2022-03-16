@@ -37,6 +37,22 @@ input {
   border: none;
 }
 
+.list-body > .memo-input-area > textarea {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.list-body > .memo-input-area > textarea,
+.list-body > input,
+.list-body > select {
+  width: 100%;
+}
+
+.text-length {
+  text-align: right;
+  vertical-align: top;
+}
+
 .login-message {
   text-align: right;
   cursor: pointer;
@@ -82,6 +98,17 @@ li.button.submit {
 
 .delete {
   background: #b71c1c;
+}
+
+.edit-button-area {
+  display: flex;
+  justify-content: end;
+}
+
+.edit-button {
+  position: relative;
+  top: -64px;
+  right: 8px;
 }
 
 html > #body {
@@ -131,6 +158,30 @@ main > .container {
     flex-direction: column;
   }
 }
+.memo-item {
+  cursor: pointer;
+}
+
+li > .modal {
+  z-index: 3;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  padding: 8rem 1rem 0;
+}
+
+.modal > .memo-edit-area {
+  width: 90%;
+  max-width: 640px;
+}
+
+.memo-edit-area > textarea {
+  width: 100%;
+  margin-bottom: 0;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

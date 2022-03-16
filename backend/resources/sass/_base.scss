@@ -28,6 +28,19 @@ form {
 input {
   border: none;
 }
+.list-body > .memo-input-area > textarea {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.list-body > .memo-input-area > textarea,
+.list-body > input,
+.list-body > select {
+  width: 100%;
+}
+.text-length {
+  text-align: right;
+  vertical-align: top;
+}
 .login-message {
   text-align: right;
   cursor: pointer;

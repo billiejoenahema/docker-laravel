@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import MemoItem from './MemoItem';
 
 const store = useStore();
 
@@ -12,7 +13,9 @@ const memos = computed(() => store.getters['memos/data']);
   <div id="memo-list">
     <div class="list-title">メモ一覧</div>
     <ul class="list-body">
-      <li v-for="(memo, index) in memos" :key="index">{{ memo.content }}</li>
+      <li v-for="(memo, index) in memos" :key="index">
+        <MemoItem :memo="memo" />
+      </li>
     </ul>
   </div>
 </template>
