@@ -19,3 +19,9 @@ mix
   .sass('resources/sass/app.scss', 'public/css')
   .css('resources/css/app.css', 'public/css')
   .version();
+
+mix.webpackConfig({
+  stats: {
+    children: true,
+  },
+});
