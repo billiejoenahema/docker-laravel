@@ -1,12 +1,20 @@
 <script setup>
 import { defineProps, ref } from 'vue';
-defineProps({
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const props = defineProps({
   memo: {
-    type: Object,
-    required: true,
+    id: 0,
+    content: '',
   },
 });
 const isModalOpen = ref(false);
+const updateMemo = () => {
+  store.dispatch('memo/update', props.memo);
+  isModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -17,7 +25,7 @@ const isModalOpen = ref(false);
     <div class="memo-edit-area">
       <textarea v-model="memo.content" rows="16"></textarea>
       <div class="edit-button-area">
-        <button class="edit-button">更新する</button>
+        <button class="edit-button" @click="updateMemo()">更新する</button>
       </div>
     </div>
   </div>
