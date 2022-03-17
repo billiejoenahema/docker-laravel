@@ -18,7 +18,7 @@ class MemoResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'user_id' => $this->user_id,
-            'tags' => $this->tags,
+            'tags' => TagResource::collection($this->tags),
         ];
     }
 }
