@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // メモ
     Route::get('/memos', [MemoController::class, 'index']);
     Route::post('/memos', [MemoController::class, 'store']);
+    Route::patch('/memos/{memo}', [MemoController::class, 'update']);
     // タグ
     Route::get('/tags', [TagController::class, 'index']);
     Route::post('/tags', [TagController::class, 'store']);

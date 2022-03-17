@@ -63,9 +63,22 @@ class MemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $memo = DB::transaction(function () use ($request) {
+            $user = Auth::user();
+            $memo = Memo::findOrFail($request['id']);
+
+            $memo->user_id = $user->id;
+            $memo->content = $request['content'];
+            $memo->save();
+
+            $memo->tags()->attach($request['tag_id']);
+
+            return $memo;
+        });
+
+        return new MemoResource($memo);
     }
 
     /**
