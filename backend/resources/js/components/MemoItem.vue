@@ -11,8 +11,9 @@ const props = defineProps({
   },
 });
 const isModalOpen = ref(false);
-const updateMemo = () => {
-  store.dispatch('memo/update', props.memo);
+const updateMemo = async () => {
+  await store.dispatch('memos/update', props.memo);
+  store.dispatch('memos/get');
   isModalOpen.value = false;
 };
 </script>

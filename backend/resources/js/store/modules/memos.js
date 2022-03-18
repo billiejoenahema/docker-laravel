@@ -10,7 +10,7 @@ const getters = {
     return state.data ?? [];
   },
   errors(state) {
-    return state.errors ?? [];
+    return state.errors;
   },
 };
 
@@ -30,7 +30,7 @@ const actions = {
     await axios
       .post('/api/memos', memo)
       .then((res) => {
-        commit('resetErrors', []);
+        commit('resetErrors');
         console.log(res.data.data);
       })
       .catch((err) => {
@@ -40,9 +40,9 @@ const actions = {
   },
   async update({ commit }, memo) {
     await axios
-      .post(`/api/memos/${memo.id}`, memo)
+      .patch(`/api/memos/${memo.id}`, memo)
       .then((res) => {
-        commit('resetErrors', []);
+        commit('resetErrors');
         console.log(res.data.data);
       })
       .catch((err) => {
