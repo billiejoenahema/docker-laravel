@@ -70,6 +70,15 @@ input {
   padding: 0;
 }
 
+li > .memo-item {
+  cursor: pointer;
+  margin: 0;
+}
+
+.memo-item:hover {
+  color: bisque;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -102,7 +111,7 @@ li.button.submit {
 
 .edit-button-area {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .edit-button {
@@ -158,16 +167,12 @@ main > .container {
     flex-direction: column;
   }
 }
-.memo-item {
-  cursor: pointer;
-}
-
 li > .modal {
-  z-index: 3;
+  z-index: 1100;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   padding: 8rem 1rem 0;
 }

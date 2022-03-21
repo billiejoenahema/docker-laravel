@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -10,7 +10,12 @@ const props = defineProps({
     content: '',
   },
 });
+const memo = reactive({
+  id: props.memo.id,
+  content: props.memo.content,
+});
 const isModalOpen = ref(false);
+const isTrashIconShow = ref(false);
 const updateMemo = async () => {
   await store.dispatch('memos/update', props.memo);
   store.dispatch('memos/get');
@@ -19,8 +24,15 @@ const updateMemo = async () => {
 </script>
 
 <template>
-  <div class="memo-item" @click="isModalOpen = true">
-    {{ memo.content }}
+  <div class="row memo-item">
+    <div
+      @click="isModalOpen = true"
+      @mouseover="isTrashIconShow = true"
+      @mouseleave="isTrashIconShow = false"
+    >
+      {{ memo.content }}
+    </div>
+    <font-awesome-icon v-if="isTrashIconShow" icon="trash" />
   </div>
   <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
     <div class="memo-edit-area">

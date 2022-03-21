@@ -34609,7 +34609,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var memo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
+      id: props.memo.id,
+      content: props.memo.content
+    });
     var isModalOpen = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
+    var isTrashIconShow = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
 
     var updateMemo = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -34640,8 +34645,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var __returned__ = {
       store: store,
       props: props,
+      memo: memo,
       isModalOpen: isModalOpen,
+      isTrashIconShow: isTrashIconShow,
       updateMemo: updateMemo,
+      reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore
     };
@@ -35161,7 +35169,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "row"
+  "class": "row memo-item"
 };
 var _hoisted_2 = {
   "class": "memo-edit-area"
@@ -35173,30 +35181,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "memo-item",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.isModalOpen = true;
+    }),
+    onMouseover: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.isTrashIconShow = true;
+    }),
+    onMouseleave: _cache[2] || (_cache[2] = function ($event) {
+      return $setup.isTrashIconShow = false;
     })
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.memo.content), 1
-  /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-    icon: "fa-solid fa-trash"
-  })]), $setup.isModalOpen ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.memo.content), 33
+  /* TEXT, HYDRATE_EVENTS */
+  ), $setup.isTrashIconShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_font_awesome_icon, {
+    key: 0,
+    icon: "trash"
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $setup.isModalOpen ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     "class": "modal",
-    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+    onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.isModalOpen = false;
     }, ["self"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $props.memo.content = $event;
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $setup.memo.content = $event;
     }),
     rows: "16"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.memo.content]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.memo.content]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "edit-button",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
+    onClick: _cache[4] || (_cache[4] = function ($event) {
       return $setup.updateMemo();
     })
   }, "更新する")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64
@@ -35603,8 +35617,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.faLeaf);
-(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).use(_routes__WEBPACK_IMPORTED_MODULE_3__["default"]).use(_store__WEBPACK_IMPORTED_MODULE_4__.store).component('fa', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_6__.FontAwesomeIcon).mount('#app');
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.fas);
+(0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]).use(_routes__WEBPACK_IMPORTED_MODULE_3__["default"]).use(_store__WEBPACK_IMPORTED_MODULE_4__.store).component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_6__.FontAwesomeIcon).mount('#app');
 
 /***/ }),
 

@@ -55,3 +55,10 @@ input {
   width: 100%;
   padding: 0;
 }
+li > .memo-item {
+  cursor: pointer;
+  margin: 0;
+}
+.memo-item:hover {
+  color: bisque;
+}
