@@ -17,22 +17,32 @@ const memo = reactive({
 const isModalOpen = ref(false);
 const isTrashIconShow = ref(false);
 const updateMemo = async () => {
-  await store.dispatch('memos/update', props.memo);
+  await store.dispatch('memos/update', memo);
   store.dispatch('memos/get');
   isModalOpen.value = false;
+};
+const deleteMemo = async () => {
+  if (window.confirm('メモを削除しますか？')) {
+    await store.dispatch('memos/delete', props.memo.id);
+    store.dispatch('memos/get');
+  }
 };
 </script>
 
 <template>
-  <div class="row memo-item">
-    <div
-      @click="isModalOpen = true"
-      @mouseover="isTrashIconShow = true"
-      @mouseleave="isTrashIconShow = false"
-    >
+  <div
+    class="row memo-item"
+    @mouseover="isTrashIconShow = true"
+    @mouseleave="isTrashIconShow = false"
+  >
+    <div @click="isModalOpen = true">
       {{ memo.content }}
     </div>
-    <font-awesome-icon v-if="isTrashIconShow" icon="trash" />
+    <font-awesome-icon
+      v-if="isTrashIconShow"
+      icon="trash"
+      @click="deleteMemo()"
+    />
   </div>
   <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
     <div class="memo-edit-area">

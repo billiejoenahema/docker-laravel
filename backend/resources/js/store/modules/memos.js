@@ -50,6 +50,18 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async delete({ commit }, id) {
+    await axios
+      .delete(`/api/memos/${id}`)
+      .then((res) => {
+        commit('resetErrors');
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {
