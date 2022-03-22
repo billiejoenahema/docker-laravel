@@ -89,6 +89,12 @@ class MemoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::transaction(function () use ($id) {
+            $memo = Memo::findOrFail($id);
+            $memo->tags()->detach($id);
+            $memo->delete();
+        });
+
+        return response()->json(['message' => 'Memo deleted successfully'], 200);
     }
 }

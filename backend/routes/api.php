@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/memos', [MemoController::class, 'index']);
     Route::post('/memos', [MemoController::class, 'store']);
     Route::patch('/memos/{memo}', [MemoController::class, 'update']);
+    Route::delete('/memos/{memo}', [MemoController::class, 'destroy']);
     // タグ
     Route::get('/tags', [TagController::class, 'index']);
     Route::post('/tags', [TagController::class, 'store']);
