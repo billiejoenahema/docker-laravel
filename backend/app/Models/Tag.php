@@ -19,6 +19,6 @@ class Tag extends Model
      */
     public function memos()
     {
-        return $this->belongsToMany(Memo::class, 'memo_tags');
+        return $this->belongsToMany(Memo::class);
     }
 }

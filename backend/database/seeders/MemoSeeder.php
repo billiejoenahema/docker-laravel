@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Memo;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class MemoSeeder extends Seeder
@@ -14,9 +15,16 @@ class MemoSeeder extends Seeder
      */
     public function run()
     {
-        Memo::create([
+        $tag = Tag::create([
+            'name' => 'テストタグ1',
+            'user_id' => '1',
+        ]);
+
+        $memo = Memo::create([
             'content' => 'テストメモ1',
             'user_id' => '1',
         ]);
+
+        $memo->tags()->attach($tag->id);
     }
 }
