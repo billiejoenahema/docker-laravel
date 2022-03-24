@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+const MEMO_SUCCESS_POST = {
+  content: 'メモを投稿しました',
+  type: 'success',
+};
+
 const state = {
   data: [],
   errors: [],
@@ -31,7 +36,8 @@ const actions = {
       .post('/api/memos', memo)
       .then((res) => {
         commit('resetErrors');
-        console.log(res.data.data);
+        commit('toast/setData', MEMO_SUCCESS_POST, { root: true });
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err.message);

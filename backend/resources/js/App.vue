@@ -1,5 +1,6 @@
 <script setup>
 import TheHeader from './components/TheHeader';
+import ToastNotification from './components/ToastNotification';
 </script>
 
 <template>
@@ -7,6 +8,7 @@ import TheHeader from './components/TheHeader';
     <TheHeader />
   </header>
   <main>
+    <ToastNotification />
     <router-view />
   </main>
 </template>
