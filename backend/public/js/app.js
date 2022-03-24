@@ -35768,6 +35768,52 @@ window.axios.defaults.withCredentials = true;
 
 /***/ }),
 
+/***/ "./resources/js/consts/toastMessage.js":
+/*!*********************************************!*\
+  !*** ./resources/js/consts/toastMessage.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MEMO_MESSAGES": () => (/* binding */ MEMO_MESSAGES)
+/* harmony export */ });
+var MEMO_MESSAGES = {
+  post: {
+    success: {
+      content: 'メモを投稿しました',
+      type: 'success'
+    },
+    error: {
+      content: 'メモを投稿できませんでした',
+      type: 'error'
+    }
+  },
+  update: {
+    success: {
+      content: 'メモを更新しました',
+      type: 'success'
+    },
+    error: {
+      content: 'メモを更新できませんでした',
+      type: 'error'
+    }
+  },
+  "delete": {
+    success: {
+      content: 'メモを削除しました',
+      type: 'success'
+    },
+    error: {
+      content: 'メモを削除できませんでした',
+      type: 'error'
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/routes/index.js":
 /*!**************************************!*\
   !*** ./resources/js/routes/index.js ***!
@@ -36115,6 +36161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _consts_toastMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../consts/toastMessage */ "./resources/js/consts/toastMessage.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -36122,10 +36169,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var MEMO_SUCCESS_POST = {
-  content: 'メモを投稿しました',
-  type: 'success'
-};
+
 var state = {
   data: [],
   errors: []
@@ -36176,10 +36220,10 @@ var actions = {
               _context2.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/memos', memo).then(function (res) {
                 commit('resetErrors');
-                commit('toast/setData', MEMO_SUCCESS_POST, {
+                commit('toast/setData', _consts_toastMessage__WEBPACK_IMPORTED_MODULE_2__.MEMO_MESSAGES.post.success, {
                   root: true
                 });
-                console.log(res.data);
+                console.log(res.data.data);
               })["catch"](function (err) {
                 console.log(err.message);
                 commit('setErrors', err.message);
@@ -36204,6 +36248,9 @@ var actions = {
               _context3.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().patch("/api/memos/".concat(memo.id), memo).then(function (res) {
                 commit('resetErrors');
+                commit('toast/setData', _consts_toastMessage__WEBPACK_IMPORTED_MODULE_2__.MEMO_MESSAGES.update.success, {
+                  root: true
+                });
                 console.log(res.data.data);
               })["catch"](function (err) {
                 console.log(err.message);
@@ -36229,6 +36276,9 @@ var actions = {
               _context4.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/memos/".concat(id)).then(function (res) {
                 commit('resetErrors');
+                commit('toast/setData', _consts_toastMessage__WEBPACK_IMPORTED_MODULE_2__.MEMO_MESSAGES["delete"].success, {
+                  root: true
+                });
                 console.log(res.data.data);
               })["catch"](function (err) {
                 console.log(err.message);
@@ -36388,6 +36438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var TIMEOUT = 4000;
 var state = {
   data: {}
 };
@@ -36399,6 +36450,9 @@ var getters = {
 var mutations = {
   setData: function setData(state, data) {
     state.data = data;
+    setTimeout(function () {
+      state.data = {};
+    }, TIMEOUT);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -40868,7 +40922,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nmain > .toast[data-v-043ad652] {\n  position: fixed;\n  top: 0px;\n  z-index: 10000;\n  font-size: 1.5rem;\n  width: 100%;\n  max-width: 2000px;\n  border-radius: 0;\n  text-align: center;\n}\n.success[data-v-043ad652] {\n  background: #80cbc4;\n  color: #00695c;\n  opacity: 1;\n  transform: translateY(-40px);\n  -webkit-animation: anime-043ad652 5s ease 1 normal;\n          animation: anime-043ad652 5s ease 1 normal;\n}\n.error[data-v-043ad652] {\n  background: #f8bbd0;\n  color: #ad1457;\n  opacity: 1;\n  transition: transform 1s;\n}\n@-webkit-keyframes anime-043ad652 {\n16.666% {\n    transform: translateY(0);\n}\n83.333% {\n    transform: translateY(0);\n}\n}\n@keyframes anime-043ad652 {\n16.666% {\n    transform: translateY(0);\n}\n83.333% {\n    transform: translateY(0);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nmain > .toast[data-v-043ad652] {\n  position: fixed;\n  top: 0px;\n  z-index: 10000;\n  font-size: 1.2rem;\n  width: 100%;\n  max-width: 2000px;\n  border-radius: 0;\n  text-align: center;\n}\n.success[data-v-043ad652] {\n  background: #80cbc4;\n  color: #00695c;\n  opacity: 1;\n  transform: translateY(-40px);\n  -webkit-animation: anime-043ad652 3s ease 1 normal;\n          animation: anime-043ad652 3s ease 1 normal;\n}\n.error[data-v-043ad652] {\n  background: #f8bbd0;\n  color: #ad1457;\n  opacity: 1;\n  transform: translateY(-40px);\n  -webkit-animation: anime-043ad652 3s ease 1 normal;\n          animation: anime-043ad652 3s ease 1 normal;\n}\n@-webkit-keyframes anime-043ad652 {\n16.666% {\n    transform: translateY(0);\n}\n83.333% {\n    transform: translateY(0);\n}\n}\n@keyframes anime-043ad652 {\n16.666% {\n    transform: translateY(0);\n}\n83.333% {\n    transform: translateY(0);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

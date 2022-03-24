@@ -15,7 +15,7 @@ main > .toast {
   position: fixed;
   top: 0px;
   z-index: 10000;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 100%;
   max-width: 2000px;
   border-radius: 0;
@@ -26,13 +26,14 @@ main > .toast {
   color: #00695c;
   opacity: 1;
   transform: translateY(-40px);
-  animation: anime 5s ease 1 normal;
+  animation: anime 3s ease 1 normal;
 }
 .error {
   background: #f8bbd0;
   color: #ad1457;
   opacity: 1;
-  transition: transform 1s;
+  transform: translateY(-40px);
+  animation: anime 3s ease 1 normal;
 }
 @keyframes anime {
   16.666% {

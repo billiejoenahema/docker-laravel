@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-const MEMO_SUCCESS_POST = {
-  content: 'メモを投稿しました',
-  type: 'success',
-};
+import { MEMO_MESSAGES as MESSAGE } from '../../consts/toastMessage';
 
 const state = {
   data: [],
@@ -36,8 +32,8 @@ const actions = {
       .post('/api/memos', memo)
       .then((res) => {
         commit('resetErrors');
-        commit('toast/setData', MEMO_SUCCESS_POST, { root: true });
-        console.log(res.data);
+        commit('toast/setData', MESSAGE.post.success, { root: true });
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -49,6 +45,7 @@ const actions = {
       .patch(`/api/memos/${memo.id}`, memo)
       .then((res) => {
         commit('resetErrors');
+        commit('toast/setData', MESSAGE.update.success, { root: true });
         console.log(res.data.data);
       })
       .catch((err) => {
@@ -61,6 +58,7 @@ const actions = {
       .delete(`/api/memos/${id}`)
       .then((res) => {
         commit('resetErrors');
+        commit('toast/setData', MESSAGE.delete.success, { root: true });
         console.log(res.data.data);
       })
       .catch((err) => {
