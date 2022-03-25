@@ -34,6 +34,7 @@ class MemoController extends Controller
     {
         $memo = DB::transaction(function () use ($request) {
             $memo = Memo::create([
+                'title' => $request['title'],
                 'content' => $request['content'],
                 'user_id' => Auth::user()->id,
             ]);

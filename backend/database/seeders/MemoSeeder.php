@@ -21,7 +21,8 @@ class MemoSeeder extends Seeder
         ]);
 
         $memo = Memo::create([
-            'content' => 'テストメモ1',
+            'title' => 'テストメモのタイトル',
+            'content' => 'テストメモのコンテンツ',
             'user_id' => '1',
         ]);
 
