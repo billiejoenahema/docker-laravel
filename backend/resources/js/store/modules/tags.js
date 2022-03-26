@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TAG_MESSAGES as MESSAGE } from '../../consts/toastMessage';
 
 const state = {
   data: [],
@@ -31,6 +32,7 @@ const actions = {
       .post('/api/tags', newTag)
       .then((res) => {
         commit('resetErrors', []);
+        commit('toast/setData', MESSAGE.post.success, { root: true });
         commit('setAddedTag', res.data);
       })
       .catch((err) => {
