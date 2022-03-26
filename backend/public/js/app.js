@@ -34461,6 +34461,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var memo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
+      title: '',
       content: '',
       tag_id: 0
     });
@@ -34468,6 +34469,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       name: ''
     });
     var MAX_LENGTH = {
+      title: 30,
       content: 200,
       tag: 20
     };
@@ -34524,6 +34526,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 if (!errors.value.length) {
+                  memo.title = '';
                   memo.content = '';
                   selected.value = 0;
                   store.dispatch('memos/get');
@@ -34604,6 +34607,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: {
     memo: {
       id: 0,
+      title: '',
       content: ''
     }
   },
@@ -34614,6 +34618,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var memo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       id: props.memo.id,
+      title: props.memo.title,
       content: props.memo.content
     });
     var isModalOpen = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
@@ -34950,8 +34955,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -35056,8 +35061,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
-      useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter
+      useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter,
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -35152,7 +35157,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_3 = {
-  "class": "list-body"
+  "class": "create-memo-pane"
 };
 var _hoisted_4 = {
   "class": "memo-input-area"
@@ -35170,11 +35175,23 @@ var _hoisted_8 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$memo$content$;
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    name: "title",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.memo.title = $event;
+    }),
+    placeholder: "メモのタイトルを入力",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tag-input", {
+      error: $setup.isOver
+    }])
+  }, null, 2
+  /* CLASS */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.memo.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     name: "content",
     rows: "3",
-    placeholder: "ここにメモを入力",
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+    placeholder: "メモの内容を入力",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $setup.memo.content = $event;
     })
   }, null, 512
@@ -35187,7 +35204,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT, CLASS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "tags",
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "class": "tag-select",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $setup.memo.tag_id = $event;
     })
   }, [_hoisted_5, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.tags, function (tag, index) {
@@ -35205,10 +35223,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.memo.tag_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "new_tag",
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $setup.newTag.name = $event;
     }),
-    placeholder: "新しいタグを入力"
+    placeholder: "新しいタグを入力",
+    "class": "tag-input"
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newTag.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -35217,13 +35236,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.newTag.name !== '']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+    onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.storeNewMemo();
     }, ["prevent"])),
     disabled: $setup.isOver || $setup.memo.tag_id === 0
   }, " メモを保存 ", 8
   /* PROPS */
-  , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.memo.content !== '']])])]);
+  , _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.memo.title !== '']])])]);
 }
 
 /***/ }),
@@ -35259,10 +35278,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.isTrashIconShow = false;
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "memo-content",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.isModalOpen = true;
     })
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.memo.content), 1
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.memo.title), 1
   /* TEXT */
   ), $setup.isTrashIconShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_font_awesome_icon, {
     key: 0,
@@ -35455,7 +35475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = {
   key: 0,
-  "class": "column"
+  "class": "column login-form"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -35490,7 +35510,7 @@ var _hoisted_7 = {
 var _hoisted_8 = ["onClick"];
 var _hoisted_9 = {
   key: 1,
-  "class": "column"
+  "class": "column register-form"
 };
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {

@@ -5,6 +5,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const memo = reactive({
+  title: '',
   content: '',
   tag_id: 0,
 });
@@ -12,6 +13,7 @@ const newTag = reactive({
   name: '',
 });
 const MAX_LENGTH = {
+  title: 30,
   content: 200,
   tag: 20,
 };
@@ -28,6 +30,7 @@ const addNewTag = async () => {
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
   if (!errors.value.length) {
+    memo.title = '';
     memo.content = '';
     selected.value = 0;
     store.dispatch('memos/get');
@@ -45,12 +48,20 @@ watchEffect(() => {
 <template>
   <div id="create-memo">
     <div class="list-title">新規メモ作成</div>
-    <div class="list-body">
+    <div class="create-memo-pane">
       <div class="memo-input-area">
+        <input
+          type="text"
+          name="title"
+          v-model="memo.title"
+          placeholder="メモのタイトルを入力"
+          class="tag-input"
+          :class="{ error: isOver }"
+        />
         <textarea
           name="content"
           rows="3"
-          placeholder="ここにメモを入力"
+          placeholder="メモの内容を入力"
           v-model="memo.content"
         ></textarea>
         <div class="text-length" :class="{ error: isOver }">
@@ -59,7 +70,7 @@ watchEffect(() => {
           {{ MAX_LENGTH.content }}
         </div>
       </div>
-      <select name="tags" v-model="memo.tag_id">
+      <select name="tags" class="tag-select" v-model="memo.tag_id">
         <option value="0">タグを選択</option>
         <option
           v-for="(tag, index) in tags"
@@ -75,6 +86,7 @@ watchEffect(() => {
         name="new_tag"
         v-model="newTag.name"
         placeholder="新しいタグを入力"
+        class="tag-input"
       />
       <button @click.prevent="addNewTag" v-show="newTag.name !== ''">
         タグを追加する
@@ -82,7 +94,7 @@ watchEffect(() => {
       <button
         type="submit"
         @click.prevent="storeNewMemo()"
-        v-show="memo.content !== ''"
+        v-show="memo.title !== ''"
         :disabled="isOver || memo.tag_id === 0"
       >
         メモを保存

@@ -7,11 +7,13 @@ const store = useStore();
 const props = defineProps({
   memo: {
     id: 0,
+    title: '',
     content: '',
   },
 });
 const memo = reactive({
   id: props.memo.id,
+  title: props.memo.title,
   content: props.memo.content,
 });
 const isModalOpen = ref(false);
@@ -35,8 +37,8 @@ const deleteMemo = async () => {
     @mouseover="isTrashIconShow = true"
     @mouseleave="isTrashIconShow = false"
   >
-    <div @click="isModalOpen = true">
-      {{ memo.content }}
+    <div class="memo-content" @click="isModalOpen = true">
+      {{ memo.title }}
     </div>
     <font-awesome-icon
       v-if="isTrashIconShow"
