@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const store = useStore();
 const router = useRouter();
@@ -35,7 +35,7 @@ const register = async () => {
 </script>
 
 <template>
-  <form class="column" v-if="showLoginForm">
+  <form class="column login-form" v-if="showLoginForm">
     <div class="row"><h4>ログイン</h4></div>
     <div class="column">
       <label for="login-email">メールアドレス</label>
@@ -61,7 +61,7 @@ const register = async () => {
     </div>
   </form>
 
-  <form class="column" v-else>
+  <form class="column register-form" v-else>
     <div class="row"><h4>新規登録</h4></div>
     <div class="column">
       <label for="register-name">ユーザー名</label>

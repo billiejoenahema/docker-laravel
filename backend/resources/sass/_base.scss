@@ -25,17 +25,22 @@ form {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-radius: 5px;
 }
-input {
+input,
+select,
+textarea {
   border: none;
 }
-.list-body > .memo-input-area > textarea {
+.memo-input-area > input {
+  width: 100%;
+}
+.memo-input-area > textarea {
+  width: 100%;
   padding-bottom: 0;
   margin-bottom: 0;
 }
-.list-body > .memo-input-area > textarea,
-.list-body > input,
-.list-body > select {
-  width: 100%;
+.create-memo-pane > input,
+.create-memo-pane > select {
+  width: 100% !important;
 }
 .text-length {
   text-align: right;
@@ -49,7 +54,7 @@ input {
   opacity: 0.8;
 }
 .row {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
@@ -61,5 +66,12 @@ li > .memo-item {
 }
 .memo-item:hover {
   color: bisque;
-  background: rgb(110, 110, 110);
+  align-items: center;
+}
+.memo-content {
+  text-overflow: ellipsis;
+}
+.login-form,
+.register-form {
+  max-width: 800px;
 }
