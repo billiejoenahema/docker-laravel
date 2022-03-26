@@ -2,6 +2,7 @@ html > #body {
   grid-template-columns: none !important;
   display: block;
   height: 100vh;
+  font-size: 1rem;
 }
 #app {
   height: 100%;
@@ -28,7 +29,7 @@ main > .container {
   height: 100%;
 }
 .list-title {
-  padding: 1rem;
+  padding: 1rem 1rem 0.5rem;
 }
 .list-body {
   background: rgb(71, 71, 71);
