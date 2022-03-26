@@ -18,7 +18,7 @@ class CreateMemosTable extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->string('title');
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
             $table->softDeletes();

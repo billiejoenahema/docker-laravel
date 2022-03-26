@@ -17,7 +17,7 @@ class MemoResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => $this->content ?? '',
             'user_id' => $this->user_id,
             'tags' => TagResource::collection($this->tags),
         ];

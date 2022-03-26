@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:30',
-            'content' => 'required|string|max:200',
+            'content' => 'nullable|string|max:200',
             'tag_id' => 'required|integer|'
         ];
     }
