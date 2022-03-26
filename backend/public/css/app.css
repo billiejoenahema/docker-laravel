@@ -33,25 +33,25 @@ form {
   border-radius: 5px;
 }
 
-input,
-select,
-textarea {
-  border: none;
-}
-
 .memo-input-area > input {
   width: 100%;
+  border: none;
+  border-radius: 0;
 }
 
 .memo-input-area > textarea {
   width: 100%;
   padding-bottom: 0;
   margin-bottom: 0;
+  border: none;
+  border-radius: 0;
 }
 
 .create-memo-pane > input,
 .create-memo-pane > select {
   width: 100% !important;
+  border: none;
+  border-radius: 0;
 }
 
 .text-length {
