@@ -33,6 +33,13 @@ form {
   border-radius: 5px;
 }
 
+input,
+select,
+textarea {
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
 .memo-input-area > input {
   width: 100%;
   border: none;
@@ -154,7 +161,7 @@ main {
 
 main > .container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 3fr 5fr 4fr;
   gap: 1rem;
   margin: 0 auto;
   padding: 0 1rem;
