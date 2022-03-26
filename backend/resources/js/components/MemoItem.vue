@@ -48,6 +48,7 @@ const deleteMemo = async () => {
   </div>
   <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
     <div class="memo-edit-area">
+      <input v-model="memo.title" />
       <textarea v-model="memo.content" rows="16"></textarea>
       <div class="edit-button-area">
         <button class="edit-button" @click="updateMemo()">更新する</button>
