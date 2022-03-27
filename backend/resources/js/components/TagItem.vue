@@ -17,6 +17,7 @@ const tag = reactive({
 const isModalOpen = ref(false);
 const isEditIconShow = ref(false);
 const updateTag = async () => {
+  console.log(tag);
   await store.dispatch('tags/update', tag);
   store.dispatch('tags/get');
   isModalOpen.value = false;
@@ -48,7 +49,9 @@ const updateTag = async () => {
   >
     <div class="tag-edit-area">
       <input class="tag-edit-input" v-model="tag.name" />
-      <button class="tag-update-button" @click="updateTag()">更新する</button>
+      <button class="tag-update-button" @click.prevent="updateTag()">
+        更新する
+      </button>
     </div>
   </div>
 </template>

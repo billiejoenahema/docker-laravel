@@ -8,6 +8,7 @@ use App\Http\Resources\Api\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TagController extends Controller
 {
@@ -54,12 +55,18 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $tag = DB::transaction(function () use ($request) {
+            $tag = Tag::findOrFail($request->id);
+            $tag->name = $request->name;
+            $tag->save();
+            return $tag;
+        });
+
+        return new TagResource($tag);
     }
 
     /**

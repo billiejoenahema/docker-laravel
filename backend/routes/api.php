@@ -33,4 +33,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // タグ
     Route::get('/tags', [TagController::class, 'index']);
     Route::post('/tags', [TagController::class, 'store']);
+    Route::patch('/tags/{tag}', [TagController::class, 'update']);
 });

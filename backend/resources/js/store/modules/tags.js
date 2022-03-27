@@ -39,6 +39,18 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async update({ commit }, tag) {
+    await axios
+      .patch(`/api/tags/${tag.id}`, tag)
+      .then((res) => {
+        commit('resetErrors', []);
+        commit('toast/setData', MESSAGE.update.success, { root: true });
+        commit('setAddedTag', res.data);
+      })
+      .catch((err) => {
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {
