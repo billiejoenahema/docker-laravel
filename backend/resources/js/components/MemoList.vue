@@ -12,10 +12,12 @@ const memos = computed(() => store.getters['memos/data']);
 <template>
   <div id="memo-list">
     <div class="list-title">メモ一覧</div>
-    <ul class="list-body">
-      <li v-for="(memo, index) in memos" :key="index">
-        <MemoItem :memo="memo" />
-      </li>
-    </ul>
+    <div class="list-body">
+      <ul>
+        <li v-for="(memo, index) in memos" :key="index">
+          <MemoItem :memo="memo" />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>

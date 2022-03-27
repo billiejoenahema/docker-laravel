@@ -35,8 +35,9 @@ main > .container {
   background: rgb(71, 71, 71);
   padding: 1rem;
 }
-.list-body > li {
+.list-body > ul > li {
   list-style: none;
+  margin-bottom: 0.5rem;
 }
 .create-memo-pane {
   background: rgb(71, 71, 71);
