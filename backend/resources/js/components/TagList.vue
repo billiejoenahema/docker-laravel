@@ -18,7 +18,7 @@ const tags = computed(() => store.getters['tags/data']);
           <TagItem :tag="tag" />
         </li>
       </ul>
-      <button type="reset">選択を解除</button>
+      <button class="reset-button" type="reset">選択を解除</button>
     </form>
   </div>
 </template>

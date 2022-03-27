@@ -9,11 +9,15 @@ li > .modal {
 }
 .modal > .memo-edit-area {
   width: 90%;
-  max-width: 640px;
+  max-width: 560px;
 }
 .memo-edit-area > textarea {
   width: 100%;
   margin-bottom: 0;
+}
+.memo-title-edit-input {
+  border-radius: 0;
+  width: 100%;
 }
 .edit-button-area {
   display: flex;
