@@ -41,6 +41,7 @@ const deleteMemo = async () => {
       {{ memo.title }}
     </div>
     <font-awesome-icon
+      class="trash-icon"
       v-if="isTrashIconShow"
       icon="trash"
       @click="deleteMemo()"

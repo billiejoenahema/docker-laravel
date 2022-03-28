@@ -1,8 +1,15 @@
 button {
   border-radius: 0 !important;
+  margin: 8px 8px 8px 0 !important;
 }
 .list-body > .reset-button {
   padding: 0;
   background: rgb(71, 71, 71);
   color: white;
+}
+.trash-icon {
+  color: #ef9a9a;
+}
+.edit-icon {
+  color: #a5d6a7;
 }

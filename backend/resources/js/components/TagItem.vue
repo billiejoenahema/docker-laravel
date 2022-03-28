@@ -36,17 +36,17 @@ const deleteTag = async () => {
     @mouseleave="isIconShow = false"
   >
     <div class="tag-checkbox-area">
-      <label :for="'tag' + tag.id">
+      <label class="tag-label" :for="'tag' + tag.id">
         <input type="checkbox" :id="'tag' + tag.id" class="tag-checkbox" />
-        {{ tag.name }}
+        <div class="tag-name" @click="isModalOpen = true">{{ tag.name }}</div>
       </label>
     </div>
     <font-awesome-icon
+      class="trash-icon"
       v-if="isIconShow"
-      icon="pen-to-square"
-      @click="isModalOpen = true"
+      icon="trash"
+      @click="deleteTag()"
     />
-    <font-awesome-icon v-if="isIconShow" icon="trash" @click="deleteTag()" />
   </div>
   <div
     class="tag-edit-modal modal"
