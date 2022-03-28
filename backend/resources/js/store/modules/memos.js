@@ -59,7 +59,7 @@ const actions = {
       .then((res) => {
         commit('resetErrors');
         commit('toast/setData', MESSAGE.delete.success, { root: true });
-        console.log(res.data.data);
+        console.log(res.data.message);
       })
       .catch((err) => {
         console.log(err.message);

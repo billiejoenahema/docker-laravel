@@ -51,6 +51,19 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async delete({ commit }, id) {
+    await axios
+      .delete(`/api/tags/${id}`)
+      .then((res) => {
+        commit('resetErrors');
+        commit('toast/setData', MESSAGE.delete.success, { root: true });
+        console.log(res.data.message);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        commit('setErrors', err.message);
+      });
+  },
 };
 
 const mutations = {

@@ -77,6 +77,11 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::transaction(function () use ($id) {
+            $tag = Tag::findOrFail($id);
+            $tag->delete();
+        });
+
+        return response()->json(['message' => 'Tag deleted successfully'], 200);
     }
 }

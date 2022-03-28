@@ -15,20 +15,25 @@ const tag = reactive({
   name: props.tag.name,
 });
 const isModalOpen = ref(false);
-const isEditIconShow = ref(false);
+const isIconShow = ref(false);
 const updateTag = async () => {
-  console.log(tag);
   await store.dispatch('tags/update', tag);
   store.dispatch('tags/get');
   isModalOpen.value = false;
+};
+const deleteTag = async () => {
+  if (window.confirm('タグを削除しますか？')) {
+    await store.dispatch('tags/delete', tag.id);
+    store.dispatch('tags/get');
+  }
 };
 </script>
 
 <template>
   <div
     class="tag-item"
-    @mouseover="isEditIconShow = true"
-    @mouseleave="isEditIconShow = false"
+    @mouseover="isIconShow = true"
+    @mouseleave="isIconShow = false"
   >
     <div class="tag-checkbox-area">
       <label :for="'tag' + tag.id">
@@ -37,10 +42,11 @@ const updateTag = async () => {
       </label>
     </div>
     <font-awesome-icon
-      v-if="isEditIconShow"
+      v-if="isIconShow"
       icon="pen-to-square"
       @click="isModalOpen = true"
     />
+    <font-awesome-icon v-if="isIconShow" icon="trash" @click="deleteTag()" />
   </div>
   <div
     class="tag-edit-modal modal"
