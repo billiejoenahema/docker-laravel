@@ -100,6 +100,10 @@ li > .tag-item {
 .memo-content {
   text-overflow: ellipsis;
 }
+.memo-content:hover,
+.tag-name:hover {
+  color: #6cb2eb;
+}
 .login-form,
 .register-form {
   max-width: 800px;

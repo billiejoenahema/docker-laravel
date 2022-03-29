@@ -38,8 +38,8 @@ const deleteTag = async () => {
     <div class="tag-checkbox-area">
       <label class="tag-label" :for="'tag' + tag.id">
         <input type="checkbox" :id="'tag' + tag.id" class="tag-checkbox" />
-        <div class="tag-name" @click="isModalOpen = true">{{ tag.name }}</div>
       </label>
+      <div class="tag-name" @click="isModalOpen = true">{{ tag.name }}</div>
     </div>
     <font-awesome-icon
       class="trash-icon"

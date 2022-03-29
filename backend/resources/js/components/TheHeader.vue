@@ -34,6 +34,6 @@ const toHome = () => {
   <nav>
     <a href="#" @click.prevent.stop="toHome">MemoApp</a>
     <a href="#" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
-    <a href="#" v-if="isLogin" @click.prevent.stop="logout"> ログアウト </a>
+    <a href="#" v-if="isLogin" @click.prevent.stop="logout">logout</a>
   </nav>
 </template>
