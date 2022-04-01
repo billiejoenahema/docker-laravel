@@ -16,9 +16,9 @@ const getters = {
 };
 
 const actions = {
-  async get({ commit }) {
+  async get({ commit }, params) {
     await axios
-      .get('/api/memos')
+      .get('/api/memos', { params })
       .then((res) => {
         commit('resetErrors', []);
         commit('setData', res.data);

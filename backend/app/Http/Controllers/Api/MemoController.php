@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Memo\IndexRequest;
 use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Resources\Api\MemoResource;
 use App\Models\Memo;
@@ -14,13 +15,18 @@ class MemoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param Request
+     * @param IndexRequest
      * @return MemoResource
      */
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
-        $memos = $query->get();
+        $memos = $query->when($request['tag_ids'], function($q) use ($request) {
+            return $q->whereHas('tags', function($q) use($request) {
+                $q->whereIn('id', $request['tag_ids']);
+            });
+        })->get();
+
         return MemoResource::collection($memos);
     }
 

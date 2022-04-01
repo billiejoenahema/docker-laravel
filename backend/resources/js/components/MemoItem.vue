@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, reactive, ref } from 'vue';
+import { defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -11,15 +11,11 @@ const props = defineProps({
     content: '',
   },
 });
-const memo = reactive({
-  id: props.memo.id,
-  title: props.memo.title,
-  content: props.memo.content,
-});
+
 const isModalOpen = ref(false);
 const isTrashIconShow = ref(false);
 const updateMemo = async () => {
-  await store.dispatch('memos/update', memo);
+  await store.dispatch('memos/update', props.memo);
   store.dispatch('memos/get');
   isModalOpen.value = false;
 };
