@@ -17,6 +17,7 @@ const memos = computed(() => store.getters['memos/data']);
         <li v-for="(memo, index) in memos" :key="index">
           <MemoItem :memo="memo" />
         </li>
+        <li v-if="memos.length === 0">メモがありません。</li>
       </ul>
     </div>
   </div>
