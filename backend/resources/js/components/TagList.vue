@@ -10,10 +10,16 @@ const checkedTagIds = ref([]);
 const isModalOpen = ref(false);
 const isIconShow = ref(false);
 const hoverItemIndex = ref(0);
+const tagEditIndex = ref(null);
+const editTag = (index) => {
+  isModalOpen.value = true;
+  tagEditIndex.value = index;
+};
 const updateTag = async (index) => {
   await store.dispatch('tags/update', tags.value[index]);
   store.dispatch('tags/get');
   isModalOpen.value = false;
+  tagEditIndex.value = null;
 };
 const deleteTag = async (tagId) => {
   if (window.confirm('タグを削除しますか？')) {
@@ -54,7 +60,7 @@ const resetChecked = () => {
                   v-model="checkedTagIds"
                 />
               </label>
-              <div class="tag-name" @click="isModalOpen = true">
+              <div class="tag-name" @click="editTag(index)">
                 {{ tag.name }}
               </div>
             </div>
@@ -65,22 +71,22 @@ const resetChecked = () => {
               @click="deleteTag(tag.id)"
             />
           </div>
-          <div
-            class="tag-edit-modal modal"
-            v-if="isModalOpen"
-            @click.self="isModalOpen = false"
-          >
-            <div class="tag-edit-area">
-              <input class="tag-edit-input" v-model="tag.name" />
-              <button
-                class="tag-update-button"
-                @click.prevent="updateTag(index)"
-              >
-                更新する
-              </button>
-            </div>
-          </div>
         </li>
+        <div
+          class="tag-edit-modal modal"
+          v-if="isModalOpen"
+          @click.self="isModalOpen = false"
+        >
+          <div class="tag-edit-area">
+            <input class="tag-edit-input" v-model="tags[tagEditIndex].name" />
+            <button
+              class="tag-update-button"
+              @click.prevent="updateTag(tagEditIndex)"
+            >
+              更新する
+            </button>
+          </div>
+        </div>
       </ul>
       <button class="reset-button" type="reset" @click="resetChecked">
         選択を解除

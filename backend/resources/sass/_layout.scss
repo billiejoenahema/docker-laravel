@@ -7,10 +7,9 @@ html > #body {
 #app {
   height: 100%;
   width: 100%;
-  padding: 0 1rem;
 }
-nav {
-  padding: 0 1;
+header {
+  padding: 0 1rem;
 }
 main {
   margin: 0;
@@ -20,7 +19,7 @@ main > .container {
   grid-template-columns: 3fr 5fr 4fr;
   gap: 1rem;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1rem;
   max-width: 1080px;
   height: 100%;
 }

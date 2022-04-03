@@ -1,3 +1,4 @@
+ul > .modal,
 li > .modal {
   z-index: 1100;
   width: 100%;
@@ -27,7 +28,7 @@ li > .modal {
   position: relative;
   top: -64px;
 }
-li > .tag-edit-modal {
+ul > .tag-edit-modal {
   position: absolute !important;
   justify-content: flex-start;
 }
