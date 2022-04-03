@@ -45,6 +45,7 @@ textarea {
   text-align: right;
   vertical-align: top;
   margin-bottom: 1rem;
+  font-size: 0.8rem;
 }
 .login-message {
   text-align: right;
@@ -107,4 +108,10 @@ li > .tag-item {
 .login-form,
 .register-form {
   max-width: 800px;
+}
+.warn {
+  color: orange;
+}
+.error {
+  color: red;
 }

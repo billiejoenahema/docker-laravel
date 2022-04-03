@@ -19,6 +19,7 @@ const MAX_LENGTH = {
 };
 const tags = computed(() => store.getters['tags/data']);
 const selected = ref(0);
+const isOver = ref('ok');
 const errors = computed(() => store.getters['memos/errors']);
 const addNewTag = async () => {
   await store.dispatch('tags/post', newTag);
@@ -36,12 +37,16 @@ const storeNewMemo = async () => {
     store.dispatch('memos/get');
   }
 };
-const isOver = ref(false);
 watchEffect(() => {
-  if (MAX_LENGTH.content < memo.content.length) {
-    isOver.value = true;
+  if (
+    MAX_LENGTH.content - 10 < memo.content.length &&
+    memo.content.length <= MAX_LENGTH.content
+  ) {
+    isOver.value = 'warn';
+  } else if (MAX_LENGTH.content < memo.content.length) {
+    isOver.value = 'error';
   } else {
-    isOver.value = false;
+    isOver.value = '';
   }
 });
 </script>
@@ -64,10 +69,10 @@ watchEffect(() => {
           placeholder="メモの内容を入力"
           v-model="memo.content"
         ></textarea>
-        <div class="text-length" :class="{ error: isOver }">
+        <div class="text-length" :class="isOver">
           {{ memo.content.length ?? 0 }}
           /
-          {{ MAX_LENGTH.content }}
+          {{ MAX_LENGTH.content }}字
         </div>
       </div>
       <select name="tags" class="tag-select" v-model="memo.tag_id">
