@@ -1,5 +1,5 @@
 export const MAX_LENGTH = {
-  title: 30,
-  content: 200,
-  tag: 20,
+  memoTitle: 30,
+  memoContent: 200,
+  tagName: 20,
 };
