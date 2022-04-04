@@ -36,6 +36,7 @@ const narrowDownMemos = () => {
 };
 const resetChecked = () => {
   checkedTagIds.value = [];
+  store.dispatch('memos/get');
 };
 </script>
 
