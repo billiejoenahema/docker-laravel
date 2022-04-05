@@ -25,7 +25,10 @@ class MemoController extends Controller
             return $q->whereHas('tags', function($q) use($request) {
                 $q->whereIn('id', $request['tag_ids']);
             });
+        })->when($request['search_word'], function($q) use ($request) {
+            return $q->where('title', 'like', '%'. $request['search_word'] . '%');
         })->get();
+
 
         return MemoResource::collection($memos);
     }

@@ -23,6 +23,17 @@ textarea {
   width: 100% !important;
   border-radius: 0 !important;
 }
+.search-input-area {
+  width: 100%;
+}
+.search-input {
+  border: none;
+  border-radius: 0;
+  width: calc(100% - 48px);
+}
+.search-button {
+  margin: 0 !important;
+}
 .memo-input-area > input {
   width: 100%;
   border: none;
