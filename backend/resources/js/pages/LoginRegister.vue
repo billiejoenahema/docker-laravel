@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -17,8 +17,15 @@ const newUser = reactive({
   password_confirmation: '',
 });
 const showLoginForm = ref(true);
+const isLogin = computed(() => store.getters['loginUser/isLogin']);
 const hasErrors = computed(() => store.getters['auth/hasErrors']);
 const errors = computed(() => store.getters['auth/errors']);
+onMounted(async () => {
+  await store.dispatch('loginUser/get');
+  if (isLogin.value) {
+    router.push('/');
+  }
+});
 const login = async () => {
   await store.dispatch('auth/login', user);
   await store.dispatch('loginUser/get');
