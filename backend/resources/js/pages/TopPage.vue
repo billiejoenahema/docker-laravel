@@ -5,6 +5,7 @@ import TagList from '../components/TagList';
 import TheHeader from '../components/TheHeader';
 import ToastNotification from '../components/ToastNotification';
 </script>
+
 <template>
   <header>
     <TheHeader />
