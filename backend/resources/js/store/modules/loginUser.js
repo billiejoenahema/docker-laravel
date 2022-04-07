@@ -18,11 +18,11 @@ const getters = {
   isLogin(state) {
     return state.isLogin;
   },
-  hasErrors(state) {
-    return state.errors.length ? true : false;
-  },
   errors(state) {
     return state.errors ?? [];
+  },
+  hasErrors(state) {
+    return state.errors?.length > 0;
   },
 };
 

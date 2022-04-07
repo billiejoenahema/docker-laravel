@@ -13,6 +13,12 @@ const getters = {
   addedTag(state) {
     return state.addedTag;
   },
+  errors(state) {
+    return state.errors;
+  },
+  hasErrors(state) {
+    return state.errors?.length > 0;
+  },
 };
 
 const actions = {

@@ -16,11 +16,11 @@ const memo = reactive({
 const tags = computed(() => store.getters['tags/data']);
 const selected = ref(0);
 const isOver = ref('');
-const errors = computed(() => store.getters['memos/errors']);
+const hasErrors = computed(() => store.getters['memos/hasErrors']);
 
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
-  if (!errors.value.length) {
+  if (!hasErrors.value) {
     memo.title = '';
     memo.content = '';
     selected.value = 0;

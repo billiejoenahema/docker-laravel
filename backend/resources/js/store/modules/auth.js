@@ -5,11 +5,11 @@ const state = {
 };
 
 const getters = {
-  hasErrors(state) {
-    return state.errors.length ? true : false;
-  },
   errors(state) {
     return state.errors ?? [];
+  },
+  hasErrors(state) {
+    return state.errors?.length > 0;
   },
 };
 
