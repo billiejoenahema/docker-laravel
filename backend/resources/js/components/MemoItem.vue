@@ -1,22 +1,20 @@
 <script setup>
 import { defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
+import MemoEditModal from './MemoEditModal';
 
 const store = useStore();
 
 const props = defineProps({
   memo: {
-    id: 0,
-    title: '',
-    content: '',
+    type: Object,
+    required: true,
   },
 });
 
 const isModalOpen = ref(false);
 const isTrashIconShow = ref(false);
-const updateMemo = async () => {
-  await store.dispatch('memos/update', props.memo);
-  store.dispatch('memos/get');
+const closeModal = () => {
   isModalOpen.value = false;
 };
 const deleteMemo = async () => {
@@ -43,17 +41,9 @@ const deleteMemo = async () => {
       @click="deleteMemo()"
     />
   </div>
-  <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
-    <div class="memo-edit-area">
-      <div class="date-area">
-        <div class="date">作成日時: {{ memo.created_at }}</div>
-        <div class="date">更新日時: {{ memo.updated_at }}</div>
-      </div>
-      <input class="memo-title-edit-input" v-model="memo.title" />
-      <textarea v-model="memo.content" rows="16"></textarea>
-      <div class="edit-button-area">
-        <button class="edit-button" @click="updateMemo()">更新する</button>
-      </div>
-    </div>
-  </div>
+  <MemoEditModal
+    v-if="isModalOpen"
+    :currentMemo="memo"
+    :closeModal="closeModal"
+  />
 </template>

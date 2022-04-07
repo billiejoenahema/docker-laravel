@@ -13,6 +13,9 @@ const getters = {
   errors(state) {
     return state.errors;
   },
+  hasErrors(state) {
+    return state.errors?.length > 0;
+  },
 };
 
 const actions = {
