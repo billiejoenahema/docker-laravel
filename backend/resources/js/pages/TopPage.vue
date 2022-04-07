@@ -1,5 +1,5 @@
 <script setup>
-import CreateMemo from '../components/CreateMemo';
+import MemoCreate from '../components/MemoCreate';
 import MemoList from '../components/MemoList';
 import TagList from '../components/TagList';
 import TheHeader from '../components/TheHeader';
@@ -15,7 +15,7 @@ import ToastNotification from '../components/ToastNotification';
     <div class="container">
       <TagList />
       <MemoList />
-      <CreateMemo />
+      <MemoCreate />
     </div>
   </main>
 </template>
