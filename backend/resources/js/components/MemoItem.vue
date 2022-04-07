@@ -45,6 +45,10 @@ const deleteMemo = async () => {
   </div>
   <div class="modal" v-if="isModalOpen" @click.self="isModalOpen = false">
     <div class="memo-edit-area">
+      <div class="date-area">
+        <div class="date">作成日時: {{ memo.created_at }}</div>
+        <div class="date">更新日時: {{ memo.updated_at }}</div>
+      </div>
       <input class="memo-title-edit-input" v-model="memo.title" />
       <textarea v-model="memo.content" rows="16"></textarea>
       <div class="edit-button-area">

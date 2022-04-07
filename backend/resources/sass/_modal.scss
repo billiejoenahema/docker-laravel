@@ -43,3 +43,11 @@ ul > .tag-edit-modal {
   min-width: 240px;
   border-radius: 0;
 }
+.date-area {
+  display: flex;
+  justify-content: flex-end;
+}
+.date-area > .date {
+  font-size: 0.8rem;
+  margin-left: 16px;
+}
