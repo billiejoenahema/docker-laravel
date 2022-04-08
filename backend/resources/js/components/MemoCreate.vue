@@ -3,7 +3,8 @@ import { computed, reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { MAX_LENGTH } from '../consts/maxLength';
 import { determineIsOver } from '../functions/determineIsOver';
-import TagInput from './TagInput.vue';
+import InputCounter from './InputCounter';
+import TagInput from './TagInput';
 
 const store = useStore();
 
@@ -50,11 +51,11 @@ watchEffect(() => {
           placeholder="メモの内容を入力"
           v-model="memo.content"
         ></textarea>
-        <div class="text-length" :class="isOver">
-          {{ memo.content.length ?? 0 }}
-          /
-          {{ MAX_LENGTH.memoContent }}字
-        </div>
+        <InputCounter
+          :isOver="isOver"
+          :content="memo.content"
+          :maxLength="MAX_LENGTH.memoContent"
+        />
       </div>
       <select name="tags" class="tag-select" v-model="memo.tag_id">
         <option value="0">タグを選択</option>
