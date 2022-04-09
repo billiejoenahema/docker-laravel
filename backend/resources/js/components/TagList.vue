@@ -43,7 +43,13 @@ const resetChecked = () => {
 <template>
   <div id="tag-list">
     <div class="list-title">タグ一覧</div>
+    <button class="narrow-down" @click="narrowDownMemos()">
+      選択したタグで絞り込む
+    </button>
     <form class="list-body">
+      <button class="reset-button" type="reset" @click="resetChecked">
+        選択を解除
+      </button>
       <ul>
         <li v-for="(tag, index) in tags" :key="tag.id">
           <div
@@ -89,12 +95,6 @@ const resetChecked = () => {
           </div>
         </div>
       </ul>
-      <button class="reset-button" type="reset" @click="resetChecked">
-        選択を解除
-      </button>
     </form>
-    <button class="narrow-down" @click="narrowDownMemos()">
-      選択したタグで絞り込む
-    </button>
   </div>
 </template>
