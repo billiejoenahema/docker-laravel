@@ -42,7 +42,7 @@ const updateMemo = async () => {
         <div class="date">更新日時: {{ memo.updated_at }}</div>
       </div>
       <input class="memo-title-edit-input" v-model="memo.title" />
-      <textarea v-model="memo.content" rows="16"></textarea>
+      <textarea v-model="memo.content" rows="12"></textarea>
       <div class="edit-button-area">
         <button class="edit-button" @click="updateMemo()">更新する</button>
       </div>
