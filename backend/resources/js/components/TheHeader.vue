@@ -25,14 +25,11 @@ const logout = async () => {
     router.push('/login');
   }
 };
-const toHome = () => {
-  router.push('/');
-};
 </script>
 
 <template>
   <nav>
-    <a href="#" @click.prevent.stop="toHome">MemoApp</a>
+    <a href="/">MemoApp</a>
     <a href="#" v-if="isLogin" @click.prevent.stop="logout">logout</a>
     <a href="#" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
   </nav>
