@@ -3,18 +3,19 @@ import { TAG_MESSAGES as MESSAGE } from '../../consts/toastMessage';
 
 const state = {
   data: [],
-  addedTag: {},
+  errors: [],
+  selectedTags: {},
 };
 
 const getters = {
   data(state) {
-    return state.data;
+    return state.data ?? [];
   },
-  addedTag(state) {
-    return state.addedTag;
+  selectedTags(state) {
+    return state.selectedTags ?? [];
   },
   errors(state) {
-    return state.errors;
+    return state.errors ?? [];
   },
   hasErrors(state) {
     return state.errors?.length > 0;
@@ -26,7 +27,7 @@ const actions = {
     await axios
       .get('/api/tags')
       .then((res) => {
-        commit('resetErrors', []);
+        commit('setErrors', []);
         commit('setData', res.data);
       })
       .catch((err) => {
@@ -37,7 +38,7 @@ const actions = {
     await axios
       .post('/api/tags', newTag)
       .then((res) => {
-        commit('resetErrors', []);
+        commit('resetStates');
         commit('toast/setData', MESSAGE.post.success, { root: true });
         commit('setAddedTag', res.data);
       })
@@ -49,7 +50,7 @@ const actions = {
     await axios
       .patch(`/api/tags/${tag.id}`, tag)
       .then((res) => {
-        commit('resetErrors', []);
+        commit('setErrors', []);
         commit('toast/setData', MESSAGE.update.success, { root: true });
         commit('setAddedTag', res.data);
       })
@@ -61,7 +62,7 @@ const actions = {
     await axios
       .delete(`/api/tags/${id}`)
       .then((res) => {
-        commit('resetErrors');
+        commit('setErrors', []);
         commit('toast/setData', MESSAGE.delete.success, { root: true });
         console.log(res.data.message);
       })
@@ -76,14 +77,19 @@ const mutations = {
   setData(state, data) {
     state.data = data.data;
   },
-  setAddedTag(state, data) {
-    state.addedTag = data.data;
+  setAddedTags(state, tagIds) {
+    const selectedTags = state.data.filter((item) => {
+      return tagIds.includes(item.id);
+    });
+    state.selectedTags = selectedTags;
   },
   setErrors(state, data) {
     state.errors = [];
     state.errors.push(data);
   },
-  resetErrors(state) {
+  resetStates(state) {
+    state.data = [];
+    state.selectedTags = [];
     state.errors = [];
     state.hasErrors = false;
   },

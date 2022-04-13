@@ -35,6 +35,7 @@ const actions = {
       .post('/api/memos', memo)
       .then((res) => {
         commit('resetErrors');
+        commit('tags/resetStates', null, { root: true });
         commit('toast/setData', MESSAGE.post.success, { root: true });
         console.log(res.data.data);
       })
