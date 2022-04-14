@@ -35,7 +35,11 @@ watchEffect(() => {
     :content="newTag.name"
     :maxLength="MAX_LENGTH.tagName"
   />
-  <button @click.prevent="addNewTag" v-show="newTag.name !== ''">
+  <button
+    class="tag-submit-button"
+    @click.prevent="addNewTag"
+    v-show="newTag.name !== ''"
+  >
     タグを追加する
   </button>
 </template>

@@ -14,8 +14,20 @@ li > .modal,
 }
 .tag-select-area {
   min-width: 240px !important;
-  background: rgb(71, 71, 71);
   padding: 8px;
+  display: flex;
+  flex-direction: column;
+
+  background: rgb(71, 71, 71);
+}
+.tag-select-list {
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.tag-select-item {
+  display: flex;
 }
 .modal > .memo-edit-area {
   width: 90%;

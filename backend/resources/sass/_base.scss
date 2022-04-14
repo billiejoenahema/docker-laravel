@@ -110,7 +110,8 @@ li > .tag-item {
   margin: 0;
   vertical-align: baseline !important;
 }
-.tag-name {
+.tag-name,
+.tag-select-name {
   margin-left: 8px;
 }
 .memo-content {
@@ -119,10 +120,6 @@ li > .tag-item {
 .memo-content:hover,
 .tag-name:hover {
   color: #6cb2eb;
-}
-.tag-select-item {
-  display: flex;
-  flex-direction: row;
 }
 .login-form,
 .register-form {
@@ -134,6 +131,15 @@ li > .tag-item {
 .error {
   color: red;
 }
-.selected-tag {
-  margin-right: 4px;
+.tag-selected {
+  display: inline-block;
+  margin: 0 4px 4px 0;
+}
+.xmark-icon {
+  position: relative;
+  top: 50%;
+  right: 0;
+}
+.tag-input {
+  margin: 16px 0;
 }

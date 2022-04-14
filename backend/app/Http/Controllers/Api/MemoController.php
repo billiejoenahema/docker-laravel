@@ -41,13 +41,14 @@ class MemoController extends Controller
      */
     public function store(StoreRequest $request)
     {
+
         $memo = DB::transaction(function () use ($request) {
             $memo = Memo::create([
                 'title' => $request['title'],
                 'content' => $request['content'],
                 'user_id' => Auth::user()->id,
             ]);
-            $memo->tags()->attach($request['tag_id']);
+            $memo->tags()->sync($request['tag_ids']);
 
             return $memo;
         });
@@ -72,7 +73,7 @@ class MemoController extends Controller
             $memo->content = $request['content'];
             $memo->save();
 
-            $memo->tags()->attach($request['tag_id']);
+            $memo->tags()->sync($request['tag_ids']);
 
             return $memo;
         });
