@@ -40,7 +40,7 @@ const actions = {
       .then((res) => {
         commit('resetStates');
         commit('toast/setData', MESSAGE.post.success, { root: true });
-        commit('setAddedTag', res.data);
+        commit('setAddedTags', res.data);
       })
       .catch((err) => {
         commit('setErrors', err.message);
@@ -52,7 +52,7 @@ const actions = {
       .then((res) => {
         commit('setErrors', []);
         commit('toast/setData', MESSAGE.update.success, { root: true });
-        commit('setAddedTag', res.data);
+        commit('setAddedTags', res.data);
       })
       .catch((err) => {
         commit('setErrors', err.message);
