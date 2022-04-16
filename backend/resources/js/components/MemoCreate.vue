@@ -24,8 +24,9 @@ const checkedTagIds = ref([]);
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
   if (!hasErrors.value) {
-    resetSates();
     store.dispatch('memos/get');
+    store.dispatch('tags/get');
+    resetSates();
   }
 };
 const resetSates = () => {
@@ -86,16 +87,20 @@ watchEffect(() => {
             @click="removeTag(selectedTags[index])"
         /></mark>
       </div>
-      <button @click="isModalOpen = true">タグを選択する</button>
+      <div class="button-area">
+        <button @click="isModalOpen = true">タグを選択する</button>
+        <button
+          type="submit"
+          @click.prevent="storeNewMemo()"
+          v-show="memo.title !== ''"
+          :disabled="isOver || memo.tag_ids.length === 0"
+        >
+          メモを保存
+        </button>
+      </div>
+    </div>
+    <div class="create-tag-pane">
       <TagInput />
-      <button
-        type="submit"
-        @click.prevent="storeNewMemo()"
-        v-show="memo.title !== ''"
-        :disabled="isOver || memo.tag_ids.length === 0"
-      >
-        メモを保存
-      </button>
     </div>
   </div>
   <!-- タグ選択モーダル -->

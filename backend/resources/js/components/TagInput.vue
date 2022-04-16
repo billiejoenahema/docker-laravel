@@ -1,16 +1,20 @@
 <script setup>
+import { computed } from '@vue/reactivity';
 import { reactive, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { MAX_LENGTH } from '../consts/maxLength';
 import { determineIsOver } from '../functions/determineIsOver';
+import { determineIsSame } from '../functions/determineIsSame';
 import InputCounter from './InputCounter';
 
 const store = useStore();
 
 const isOver = ref('');
+const isSame = ref(false);
 const newTag = reactive({
   name: '',
 });
+const tags = computed(() => store.getters['tags/data']);
 
 const addNewTag = async () => {
   await store.dispatch('tags/post', newTag);
@@ -19,6 +23,7 @@ const addNewTag = async () => {
 };
 watchEffect(() => {
   isOver.value = determineIsOver('tagName', newTag.name.length);
+  isSame.value = determineIsSame(newTag.name, tags.value);
 });
 </script>
 
@@ -39,6 +44,7 @@ watchEffect(() => {
     class="tag-submit-button"
     @click.prevent="addNewTag"
     v-show="newTag.name !== ''"
+    :disabled="isSame || isOver === 'error'"
   >
     タグを追加する
   </button>
