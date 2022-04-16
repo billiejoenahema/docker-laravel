@@ -50,7 +50,13 @@ main > .container {
 .create-memo-pane {
   background: rgb(71, 71, 71);
   padding: 8px;
-  min-height: 480px;
+  min-height: 232px;
+}
+.create-tag-pane {
+  background: rgb(71, 71, 71);
+  margin-top: 8px;
+  padding: 8px;
+  height: 156px;
 }
 @media (max-width: 767px) {
   #body > #app > main > .container {
