@@ -7,7 +7,7 @@ li > .modal,
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 32px 8px 0;
+  padding: 80px 8px 0;
 }
 #tag-select-modal {
   justify-content: flex-end !important;
@@ -41,14 +41,7 @@ li > .modal,
   border-radius: 0;
   width: 100%;
 }
-.edit-button-area {
-  display: flex;
-  justify-content: flex-end;
-}
-.edit-button {
-  position: relative;
-  top: -64px;
-}
+
 ul > .tag-edit-modal {
   position: absolute !important;
   justify-content: flex-start;
@@ -56,11 +49,9 @@ ul > .tag-edit-modal {
 .tag-edit-area {
   display: inline-flex;
 }
-.tag-edit-area > .tag-update-button {
-  border-radius: 0;
-}
+
 .tag-edit-input {
-  margin: 8px 0 8px;
+  margin: 0;
   min-width: 240px;
   border-radius: 0;
 }

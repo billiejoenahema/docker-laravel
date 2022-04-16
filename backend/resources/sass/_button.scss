@@ -1,6 +1,6 @@
 button {
   border-radius: 0 !important;
-  margin: 8px 8px 8px 0 !important;
+  margin: 0 !important;
   padding: 8px !important;
   font-size: 0.9rem !important;
 }
@@ -22,4 +22,20 @@ button {
 }
 .tag-select-submit-button {
   margin: 0 !important;
+}
+.edit-button-area {
+  display: flex;
+  justify-content: flex-end;
+}
+.edit-button {
+  position: relative;
+  bottom: 52px;
+  right: 8px;
+}
+.tag-edit-area > .tag-update-button {
+  border-radius: 0;
+}
+.button-area {
+  display: flex;
+  justify-content: space-between;
 }
