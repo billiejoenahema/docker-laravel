@@ -11,7 +11,7 @@ defineProps({
     required: true,
   },
   maxLength: {
-    type: String,
+    type: Number,
     required: true,
   },
 });
