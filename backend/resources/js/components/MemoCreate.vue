@@ -5,6 +5,7 @@ import { MAX_LENGTH } from '../consts/maxLength';
 import { determineIsOver } from '../functions/determineIsOver';
 import InputCounter from './InputCounter';
 import TagInput from './TagInput';
+import TagSelector from './TagSelector.vue';
 
 const store = useStore();
 
@@ -88,6 +89,7 @@ watchEffect(() => {
         /></mark>
       </div>
       <div class="button-area">
+        <TagSelector v-if="isModalOpen" @click.self="isModalOpen = false" />
         <button @click="isModalOpen = true">タグを選択する</button>
         <button
           type="submit"
@@ -107,6 +109,8 @@ watchEffect(() => {
   <div
     id="tag-select-modal"
     class="modal"
+    :tag="tag"
+    :submit="submit"
     v-if="isModalOpen"
     @click.self="isModalOpen = false"
   >
