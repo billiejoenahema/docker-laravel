@@ -145,3 +145,13 @@ li > .tag-item {
   border-radius: 0;
   width: 100%;
 }
+li > .tag-item,
+li > .memo-item {
+  box-sizing: border-box;
+  padding: 4px;
+  align-items: center;
+}
+li > .tag-item:hover,
+li > .memo-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
