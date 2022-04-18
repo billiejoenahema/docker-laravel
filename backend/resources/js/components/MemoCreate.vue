@@ -20,7 +20,7 @@ const isOver = ref('');
 const hasErrors = computed(() => store.getters['memos/hasErrors']);
 const isModalOpen = ref(false);
 const isXmarkIconShow = ref(false);
-const checkedTagIds = ref([]);
+const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
 
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
@@ -34,13 +34,12 @@ const resetSates = () => {
   memo.title = '';
   memo.content = '';
   memo.tag_ids = [];
-  checkedTagIds.value = [];
+  store.mutation('tags/setSelectedTags', []);
 };
 const removeTag = () => {};
 const submit = () => {
   isModalOpen.value = false;
-  memo.tag_ids = checkedTagIds;
-  store.commit('tags/setAddedTags', checkedTagIds.value);
+  memo.tag_ids = selectedTagIds;
 };
 watchEffect(() => {
   isOver.value = determineIsOver('memoContent', memo.content.length);
@@ -89,7 +88,12 @@ watchEffect(() => {
         /></mark>
       </div>
       <div class="button-area">
-        <TagSelector v-if="isModalOpen" @click.self="isModalOpen = false" />
+        <TagSelector
+          v-if="isModalOpen"
+          @click.self="isModalOpen = false"
+          :tags="tags"
+          :submit="submit"
+        />
         <button @click="isModalOpen = true">タグを選択する</button>
         <button
           type="submit"
@@ -103,35 +107,6 @@ watchEffect(() => {
     </div>
     <div class="create-tag-pane">
       <TagInput />
-    </div>
-  </div>
-  <!-- タグ選択モーダル -->
-  <div
-    id="tag-select-modal"
-    class="modal"
-    :tag="tag"
-    :submit="submit"
-    v-if="isModalOpen"
-    @click.self="isModalOpen = false"
-  >
-    <div class="tag-select-area">
-      <div class="tag-select-list">
-        <div class="tag-select-item" v-for="tag in tags" :key="tag.id">
-          <label class="tag-label" :for="'tag' + tag.id">
-            <input
-              class="tag-checkbox"
-              type="checkbox"
-              :id="'tag' + tag.id"
-              :value="tag.id"
-              v-model="checkedTagIds"
-            />
-          </label>
-          <div class="tag-select-name">
-            {{ tag.name }}
-          </div>
-        </div>
-      </div>
-      <button class="tag-select-submit-button" @click="submit()">確定</button>
     </div>
   </div>
 </template>

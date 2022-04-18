@@ -1,6 +1,7 @@
 <script setup>
-import { defineProps } from 'vue';
-defineProps({
+import { computed, defineProps, onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
+const props = defineProps({
   tags: {
     type: Array,
     required: true,
@@ -10,6 +11,16 @@ defineProps({
     required: true,
   },
 });
+const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
+onMounted(() => {
+  checkedTagIds.value = selectedTagIds.value;
+});
+const store = useStore();
+const checkedTagIds = ref([]);
+const handleClickSubmit = () => {
+  store.commit('tags/setSelectedTags', checkedTagIds.value);
+  props.submit();
+};
 </script>
 
 <template>
@@ -31,7 +42,12 @@ defineProps({
           </div>
         </div>
       </div>
-      <button class="tag-select-submit-button" @click="submit()">確定</button>
+      <button
+        class="tag-select-submit-button"
+        @click.prevent="handleClickSubmit()"
+      >
+        確定
+      </button>
     </div>
   </div>
 </template>

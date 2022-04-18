@@ -4,7 +4,8 @@ import { TAG_MESSAGES as MESSAGE } from '../../consts/toastMessage';
 const state = {
   data: [],
   errors: [],
-  selectedTags: {},
+  selectedTags: [],
+  selectedTagIds: [],
 };
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   selectedTags(state) {
     return state.selectedTags ?? [];
+  },
+  selectedTagIds(state) {
+    return state.selectedTagIds ?? [];
   },
   errors(state) {
     return state.errors ?? [];
@@ -40,7 +44,7 @@ const actions = {
       .then((res) => {
         commit('resetStates');
         commit('toast/setData', MESSAGE.post.success, { root: true });
-        commit('setAddedTags', res.data);
+        commit('setSelectedTags', res.data);
       })
       .catch((err) => {
         commit('setErrors', err.message);
@@ -52,7 +56,7 @@ const actions = {
       .then((res) => {
         commit('setErrors', []);
         commit('toast/setData', MESSAGE.update.success, { root: true });
-        commit('setAddedTags', res.data);
+        commit('setSelectedTags', res.data);
       })
       .catch((err) => {
         commit('setErrors', err.message);
@@ -77,11 +81,11 @@ const mutations = {
   setData(state, data) {
     state.data = data.data;
   },
-  setAddedTags(state, tagIds) {
-    const selectedTags = state.data.filter((item) => {
+  setSelectedTags(state, tagIds) {
+    state.selectedTagIds = tagIds;
+    state.selectedTags = state.data.filter((item) => {
       return tagIds.includes(item.id);
     });
-    state.selectedTags = selectedTags;
   },
   setErrors(state, data) {
     state.errors = [];
