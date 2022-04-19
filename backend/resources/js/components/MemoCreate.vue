@@ -5,6 +5,7 @@ import { MAX_LENGTH } from '../consts/maxLength';
 import { determineIsOver } from '../functions/determineIsOver';
 import InputCounter from './InputCounter';
 import TagInput from './TagInput';
+import TagSelectedItem from './TagSelectedItem.vue';
 import TagSelector from './TagSelector.vue';
 
 const store = useStore();
@@ -16,11 +17,10 @@ const memo = reactive({
 });
 const tags = computed(() => store.getters['tags/data']);
 const selectedTags = computed(() => store.getters['tags/selectedTags']);
+const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
 const isOver = ref('');
 const hasErrors = computed(() => store.getters['memos/hasErrors']);
 const isModalOpen = ref(false);
-const isXmarkIconShow = ref(false);
-const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
 
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
@@ -36,7 +36,9 @@ const resetSates = () => {
   memo.tag_ids = [];
   store.mutation('tags/setSelectedTags', []);
 };
-const removeTag = () => {};
+const removeTag = (tag) => {
+  console.log(tag);
+};
 const submit = () => {
   isModalOpen.value = false;
   memo.tag_ids = selectedTagIds;
@@ -71,21 +73,13 @@ watchEffect(() => {
           :maxLength="MAX_LENGTH.memoContent"
         />
       </div>
-      <div>
-        <mark
-          class="tag-selected"
-          v-for="(tag, index) in selectedTags"
+      <div class="tag-selected-list">
+        <TagSelectedItem
+          v-for="tag in selectedTags"
           :key="tag.id"
-          @mouseover.self="isXmarkIconShow = true"
-          @mouseleave.self="isXmarkIconShow = false"
-        >
-          {{ tag.name
-          }}<font-awesome-icon
-            class="xmark-icon"
-            v-show="isXmarkIconShow"
-            icon="xmark"
-            @click="removeTag(selectedTags[index])"
-        /></mark>
+          :tag="tag"
+          :removeTag="removeTag"
+        />
       </div>
       <div class="button-area">
         <TagSelector
@@ -105,8 +99,6 @@ watchEffect(() => {
         </button>
       </div>
     </div>
-    <div class="create-tag-pane">
-      <TagInput />
-    </div>
+    <TagInput />
   </div>
 </template>

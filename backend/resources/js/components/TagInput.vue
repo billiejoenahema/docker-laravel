@@ -28,24 +28,26 @@ watchEffect(() => {
 </script>
 
 <template>
-  <input
-    type="text"
-    name="new_tag"
-    v-model="newTag.name"
-    placeholder="新しいタグを入力"
-    class="tag-input"
-  />
-  <InputCounter
-    :isOver="isOver"
-    :content="newTag.name"
-    :maxLength="MAX_LENGTH.tagName"
-  />
-  <button
-    class="tag-submit-button"
-    @click.prevent="addNewTag"
-    v-show="newTag.name !== ''"
-    :disabled="isSame || isOver === 'error'"
-  >
-    タグを追加する
-  </button>
+  <div class="create-tag-pane">
+    <input
+      type="text"
+      name="new_tag"
+      v-model="newTag.name"
+      placeholder="新しいタグを入力"
+      class="tag-input"
+    />
+    <InputCounter
+      :isOver="isOver"
+      :content="newTag.name"
+      :maxLength="MAX_LENGTH.tagName"
+    />
+    <button
+      class="tag-submit-button"
+      @click.prevent="addNewTag"
+      v-show="newTag.name !== ''"
+      :disabled="isSame || isOver === 'error'"
+    >
+      タグを追加する
+    </button>
+  </div>
 </template>
