@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from '@vue/reactivity';
-import { defineProps, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
