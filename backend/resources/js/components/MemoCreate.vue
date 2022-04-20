@@ -36,9 +36,7 @@ const resetSates = () => {
   memo.tag_ids = [];
   store.mutation('tags/setSelectedTags', []);
 };
-const removeTag = (tag) => {
-  console.log(tag);
-};
+
 const submit = () => {
   isModalOpen.value = false;
   memo.tag_ids = selectedTagIds;
@@ -75,10 +73,10 @@ watchEffect(() => {
       </div>
       <div class="tag-selected-list">
         <TagSelectedItem
-          v-for="tag in selectedTags"
+          v-for="(tag, index) in selectedTags"
           :key="tag.id"
           :tag="tag"
-          :removeTag="removeTag"
+          :index="index"
         />
       </div>
       <div class="button-area">

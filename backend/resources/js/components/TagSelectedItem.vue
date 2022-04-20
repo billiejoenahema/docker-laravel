@@ -1,16 +1,21 @@
 <script setup>
 import { defineProps, ref } from 'vue';
+import { useStore } from 'vuex';
 defineProps({
   tag: {
     type: Object,
     required: true,
   },
-  removeTag: {
-    type: Function,
+  index: {
+    type: Number,
     required: true,
   },
 });
+const store = useStore();
 const isXmarkIconShow = ref(false);
+const removeTag = (index) => {
+  store.commit('tags/removeTag', index);
+};
 </script>
 
 <template>
@@ -23,7 +28,7 @@ const isXmarkIconShow = ref(false);
     <div
       class="xmark-icon-wrapper"
       v-if="isXmarkIconShow"
-      @click="removeTag(tag)"
+      @click="removeTag(index)"
     >
       <font-awesome-icon class="xmark-icon" icon="xmark" />
     </div>

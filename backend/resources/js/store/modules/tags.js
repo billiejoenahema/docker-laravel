@@ -87,6 +87,9 @@ const mutations = {
       return tagIds.includes(item.id);
     });
   },
+  removeTag(state, index) {
+    state.selectedTags.splice(index, 1);
+  },
   setErrors(state, data) {
     state.errors = [];
     state.errors.push(data);
