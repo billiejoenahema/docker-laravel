@@ -70,6 +70,7 @@ class MemoController extends Controller
             $memo = Memo::findOrFail($request['id']);
 
             $memo->user_id = $user->id;
+            $memo->title = $request['title'];
             $memo->content = $request['content'];
             $memo->save();
 
