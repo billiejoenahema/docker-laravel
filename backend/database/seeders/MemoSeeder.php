@@ -26,6 +26,6 @@ class MemoSeeder extends Seeder
             'user_id' => '1',
         ]);
 
-        $memo->tags()->attach($tag->id);
+        $memo->tags()->sync($tag->id);
     }
 }
