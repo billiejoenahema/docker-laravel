@@ -26,14 +26,10 @@ button {
 .tag-select-submit-button {
   margin: 8px 0 0 !important;
 }
-.edit-button-area {
-  display: flex;
-  justify-content: flex-end;
-}
 .edit-button {
-  position: relative;
-  bottom: 52px;
-  right: 8px;
+  position: absolute;
+  bottom: 23px;
+  right: 17px;
 }
 .tag-edit-area > .tag-update-button {
   border-radius: 0;

@@ -32,6 +32,9 @@ li > .modal,
 .modal > .memo-edit-area {
   width: 90%;
   max-width: 560px;
+  padding: 8px;
+  background: rgb(71, 71, 71);
+  position: relative;
 }
 .memo-edit-area > textarea {
   width: 100%;
