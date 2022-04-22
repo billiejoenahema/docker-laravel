@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Memo\IndexRequest;
 use App\Http\Requests\Memo\StoreRequest;
+use App\Http\Requests\Memo\UpdateRequest;
 use App\Http\Resources\Api\MemoResource;
 use App\Models\Memo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -59,11 +59,10 @@ class MemoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRequest $request
+     * @return MemoResource
      */
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
         $memo = DB::transaction(function () use ($request) {
             $user = Auth::user();
@@ -73,8 +72,7 @@ class MemoController extends Controller
             $memo->title = $request['title'];
             $memo->content = $request['content'];
             $memo->save();
-
-            $memo->tags()->sync($request['tag_ids']);
+            $memo->tags()->sync($request->getTagIds());
 
             return $memo;
         });
