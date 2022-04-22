@@ -16,16 +16,19 @@ const newUser = reactive({
   password: '',
   password_confirmation: '',
 });
-const showLoginForm = ref(true);
-const isLogin = computed(() => store.getters['loginUser/isLogin']);
-const hasErrors = computed(() => store.getters['auth/hasErrors']);
-const errors = computed(() => store.getters['auth/errors']);
+
 onMounted(async () => {
   await store.dispatch('loginUser/get');
   if (isLogin.value) {
     router.push('/');
   }
 });
+
+const showLoginForm = ref(true);
+const isLogin = computed(() => store.getters['loginUser/isLogin']);
+const hasErrors = computed(() => store.getters['auth/hasErrors']);
+const errors = computed(() => store.getters['auth/errors']);
+
 const login = async () => {
   await store.dispatch('auth/login', user);
   await store.dispatch('loginUser/get');

@@ -12,7 +12,7 @@ const isLogin = computed(() => store.getters['loginUser/isLogin']);
 
 onMounted(async () => {
   await store.dispatch('loginUser/get');
-  if (isLogin.value) {
+  if (isLogin.value && !hasErrors.value) {
     router.push('/');
   } else {
     router.push('/login');
@@ -21,16 +21,14 @@ onMounted(async () => {
 
 const logout = async () => {
   await store.dispatch('auth/logout');
-  if (!hasErrors.value) {
-    router.push('/login');
-  }
+  router.push('/login');
 };
 </script>
 
 <template>
   <nav>
     <a href="/">MemoApp</a>
-    <a href="#" v-if="isLogin" @click.prevent.stop="logout">logout</a>
-    <a href="#" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
+    <a href="" v-if="isLogin" @click.prevent.stop="logout">logout</a>
+    <a href="" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
   </nav>
 </template>
