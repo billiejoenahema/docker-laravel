@@ -15,7 +15,6 @@ const memo = reactive({
   content: '',
   tag_ids: [],
 });
-const tags = computed(() => store.getters['tags/data']);
 const selectedTags = computed(() => store.getters['tags/selectedTags']);
 const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
 const isOver = ref('');
@@ -37,7 +36,7 @@ const resetSates = () => {
   store.mutation('tags/setSelectedTags', []);
 };
 
-const submit = () => {
+const submitSelectedTags = () => {
   isModalOpen.value = false;
   memo.tag_ids = selectedTagIds;
 };
@@ -83,8 +82,8 @@ watchEffect(() => {
         <TagSelector
           v-if="isModalOpen"
           @click.self="isModalOpen = false"
-          :tags="tags"
-          :submit="submit"
+          :selectedTags="selectedTags"
+          :submitSelectedTags="submitSelectedTags"
         />
         <button @click="isModalOpen = true">タグを選択する</button>
         <button

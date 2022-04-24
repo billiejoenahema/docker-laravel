@@ -1,7 +1,8 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import TagSelectedItem from '../components/TagSelectedItem';
+import TagSelector from './TagSelector';
 
 const store = useStore();
 const props = defineProps({
@@ -26,7 +27,14 @@ const memo = reactive({
   created_at: props.currentMemo.created_at,
   updated_at: props.currentMemo.updated_at,
 });
+const isShowTagSelector = ref(false);
+const selectedTags = computed(() => store.getters['tags/selectedTags']);
 const hasErrors = computed(() => store.getters['memos/hasErrors']);
+const submitSelectedTags = () => {
+  isShowTagSelector.value = false;
+  memo.tags = selectedTags.value;
+  store.dispatch('memos/update', memo);
+};
 const updateMemo = async () => {
   await store.dispatch('memos/update', memo);
   if (!hasErrors.value) {
@@ -45,7 +53,13 @@ const updateMemo = async () => {
         :tag="tag"
         :index="index"
       />
-      <button>タグを追加する</button>
+      <button @click="isShowTagSelector = true">タグを変更する</button>
+      <TagSelector
+        v-if="isShowTagSelector"
+        @click.self="isShowTagSelector = false"
+        :selectedTags="memo.tags"
+        :submitSelectedTags="submitSelectedTags"
+      />
       <div class="date-area">
         <div class="date">作成日時: {{ memo.created_at }}</div>
         <div class="date">更新日時: {{ memo.updated_at }}</div>

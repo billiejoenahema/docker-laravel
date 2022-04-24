@@ -2,24 +2,24 @@
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 const props = defineProps({
-  tags: {
+  selectedTags: {
     type: Array,
     required: true,
   },
-  submit: {
+  submitSelectedTags: {
     type: Function,
     required: true,
   },
 });
-const selectedTagIds = computed(() => store.getters['tags/selectedTagIds']);
 onMounted(() => {
-  checkedTagIds.value = selectedTagIds.value;
+  checkedTagIds.value = props.selectedTags.map((item) => item.id);
 });
+const tags = computed(() => store.getters['tags/data']);
 const store = useStore();
 const checkedTagIds = ref([]);
 const handleClickSubmit = () => {
   store.commit('tags/setSelectedTags', checkedTagIds.value);
-  props.submit();
+  props.submitSelectedTags();
 };
 </script>
 
