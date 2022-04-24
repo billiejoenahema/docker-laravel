@@ -25,6 +25,7 @@ const deleteTag = async (tagId) => {
   if (window.confirm('タグを削除しますか？')) {
     await store.dispatch('tags/delete', tagId);
     store.dispatch('tags/get');
+    store.dispatch('memos/get');
   }
 };
 const mouseoverTagItem = (index) => {
