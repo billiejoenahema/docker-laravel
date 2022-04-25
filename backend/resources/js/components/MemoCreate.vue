@@ -24,16 +24,15 @@ const isModalOpen = ref(false);
 const storeNewMemo = async () => {
   await store.dispatch('memos/post', memo);
   if (!hasErrors.value) {
-    store.dispatch('memos/get');
-    store.dispatch('tags/get');
+    await store.dispatch('memos/get');
+    await store.dispatch('tags/get');
     resetSates();
   }
 };
 const resetSates = () => {
   memo.title = '';
   memo.content = '';
-  memo.tag_ids = [];
-  store.mutation('tags/setSelectedTags', []);
+  store.commit('tags/setSelectedTags', []);
 };
 
 const submitSelectedTags = () => {
