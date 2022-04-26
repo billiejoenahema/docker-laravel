@@ -61,5 +61,9 @@ export const TAG_MESSAGES = {
       content: 'タグを削除できませんでした',
       type: 'error',
     },
+    restrict: {
+      content: 'タグが使用されているため削除できません',
+      type: 'error',
+    },
   },
 };

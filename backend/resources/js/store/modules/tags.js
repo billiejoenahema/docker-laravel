@@ -73,11 +73,7 @@ const actions = {
           });
         } else {
           commit('setErrors', res.data.error_message);
-          commit(
-            'toast/setData',
-            { content: res.data.error_message, type: 'error' },
-            { root: true }
-          );
+          commit('toast/setData', MESSAGE.delete.restrict, { root: true });
         }
       })
       .catch((err) => {
