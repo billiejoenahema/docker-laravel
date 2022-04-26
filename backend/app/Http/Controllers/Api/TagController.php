@@ -66,11 +66,16 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        DB::transaction(function () use ($id) {
-            $tag = Tag::findOrFail($id);
-            $tag->delete();
-        });
+        $tag = Tag::findOrFail($id);
 
-        return response()->json(['message' => 'Tag deleted successfully'], 200);
+        // 紐づくメモが存在しなければ実行する
+        if($tag->memos()->doesntExist()) {
+            $tag->delete();
+            return response()->json(['message' => 'Tag deleted successfully'], 200);
+        }
+        return response()->json([
+            'error_message' => 'Cannot be deleted because of the existence of a memo associated with it.'
+        ]);
+
     }
 }

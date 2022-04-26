@@ -67,8 +67,18 @@ const actions = {
       .delete(`/api/tags/${id}`)
       .then((res) => {
         commit('setErrors', []);
-        commit('toast/setData', MESSAGE.delete.success, { root: true });
-        console.log(res.data.message);
+        if (!res.data.error_message) {
+          commit('toast/setData', MESSAGE.delete.success, {
+            root: true,
+          });
+        } else {
+          commit('setErrors', res.data.error_message);
+          commit(
+            'toast/setData',
+            { content: res.data.error_message, type: 'error' },
+            { root: true }
+          );
+        }
       })
       .catch((err) => {
         console.log(err.message);
