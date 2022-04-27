@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources\Api;
+namespace App\Http\Resources;
 
+use App\Http\Resources\TagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MemoResource extends JsonResource

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Memo\IndexRequest;
 use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Requests\Memo\UpdateRequest;
-use App\Http\Resources\Api\MemoResource;
+use App\Http\Resources\MemoResource;
 use App\Models\Memo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
