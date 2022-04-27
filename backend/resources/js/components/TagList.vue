@@ -44,9 +44,6 @@ const resetChecked = () => {
 <template>
   <div id="tag-list">
     <div class="list-title">タグ一覧</div>
-    <button class="narrow-down" @click="narrowDownMemos()">
-      選択したタグで絞り込む
-    </button>
     <form class="list-body">
       <button class="reset-button" type="reset" @click="resetChecked">
         選択を解除
@@ -66,6 +63,7 @@ const resetChecked = () => {
                   :id="'tag' + tag.id"
                   :value="tag.id"
                   v-model="checkedTagIds"
+                  @change="narrowDownMemos()"
                 />
               </label>
               <div class="tag-name" @click="editTag(index)">
