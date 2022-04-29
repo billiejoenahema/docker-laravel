@@ -11,14 +11,13 @@ use App\Models\Tag;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * アプリケーションのポリシーマッピング
      *
-     * @return void
+     * @var array
      */
-    public function register()
-    {
-        //
-    }
+    protected $policies = [
+        Memo::class => MemoPolicy::class,
+    ];
 
     /**
      * Bootstrap any application services.
