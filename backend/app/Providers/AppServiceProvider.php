@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// use Illuminate\Support\Facades\DB;
 use App\Models\Memo;
 use App\Models\Tag;
-// use App\Models\MemoTag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Memo::class => MemoPolicy::class,
+        Tag::class => TagPolicy::class,
     ];
 
     /**

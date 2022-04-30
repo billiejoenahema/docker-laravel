@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/memos/{memo}', [MemoController::class, 'update'])->middleware('can:update, App\Models\Memo');
     Route::delete('/memos/{memo}', [MemoController::class, 'destroy'])->middleware('can:delete, App\Models\Memo');
     // タグ
-    Route::get('/tags', [TagController::class, 'index']);
-    Route::post('/tags', [TagController::class, 'store']);
-    Route::patch('/tags/{tag}', [TagController::class, 'update']);
-    Route::delete('/tags/{tag}', [TagController::class, 'destroy']);
+    Route::get('/tags', [TagController::class, 'index'])->middleware('can:viewAny, App\Models\Tag');
+    Route::post('/tags', [TagController::class, 'store'])->middleware('can:create, App\Models\Tag');
+    Route::patch('/tags/{tag}', [TagController::class, 'update'])->middleware('can:update, App\Models\Tag');
+    Route::delete('/tags/{tag}', [TagController::class, 'destroy'])->middleware('can:delete, App\Models\Tag');
 });
