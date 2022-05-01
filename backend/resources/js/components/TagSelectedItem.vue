@@ -29,6 +29,7 @@ const removeTag = (index) => {
       class="xmark-icon-wrapper"
       v-if="isXmarkIconShow"
       @click="removeTag(index)"
+      title="タグを外す"
     >
       <font-awesome-icon class="xmark-icon" icon="xmark" />
     </div>

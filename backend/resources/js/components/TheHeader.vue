@@ -27,8 +27,16 @@ const logout = async () => {
 
 <template>
   <nav>
-    <a href="/">MemoApp</a>
-    <a href="" v-if="isLogin" @click.prevent.stop="logout">logout</a>
-    <a href="" v-if="isLogin" @click.prevent.stop>{{ loginUser.name }}</a>
+    <a href="/" title="ホーム">MemoApp</a>
+    <a href="" v-if="isLogin" @click.prevent.stop="logout" title="ログアウト"
+      >logout</a
+    >
+    <a
+      href=""
+      v-if="isLogin"
+      @click.prevent.stop
+      title="ログインユーザーネーム"
+      >{{ loginUser.name }}</a
+    >
   </nav>
 </template>

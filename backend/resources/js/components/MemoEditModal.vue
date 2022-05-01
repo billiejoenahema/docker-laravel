@@ -51,7 +51,7 @@ const updateMemo = async () => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="memo-edit-area">
-      <div class="trash-icon-wrapper" @click="deleteMemo()">
+      <div class="trash-icon-wrapper" @click="deleteMemo()" title="メモを削除">
         <font-awesome-icon class="trash-icon" icon="trash" />
       </div>
       <TagSelectedItem
