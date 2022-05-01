@@ -45,5 +45,6 @@ const deleteMemo = async () => {
     v-if="isModalOpen"
     :currentMemo="memo"
     :closeModal="closeModal"
+    :deleteMemo="deleteMemo"
   />
 </template>

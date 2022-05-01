@@ -18,6 +18,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  deleteMemo: {
+    type: Function,
+    required: true,
+  },
 });
 const memo = reactive({
   id: props.currentMemo.id,
@@ -47,6 +51,9 @@ const updateMemo = async () => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="memo-edit-area">
+      <div class="trash-icon-wrapper" @click="deleteMemo()">
+        <font-awesome-icon class="trash-icon" icon="trash" />
+      </div>
       <TagSelectedItem
         v-for="(tag, index) in memo.tags"
         :key="tag.id"

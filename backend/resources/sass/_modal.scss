@@ -39,6 +39,21 @@ li > .modal,
 .memo-edit-area > textarea {
   width: 100%;
   margin-bottom: 0;
+  position: relative;
+}
+.trash-icon-wrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.trash-icon-wrapper:hover {
+  background: rgb(107, 107, 107);
 }
 .memo-title-edit-input {
   border-radius: 0;
