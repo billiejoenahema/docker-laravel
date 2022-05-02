@@ -5,7 +5,7 @@ const state = {
     id: null,
     name: '',
     email: '',
-    createdAt: null,
+    created_at: null,
   },
   errors: [],
 };

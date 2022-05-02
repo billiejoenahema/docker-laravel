@@ -7,14 +7,11 @@ const store = useStore();
 const router = useRouter();
 
 const loginUser = computed(() => store.getters['loginUser/loginUser']);
-const hasErrors = computed(() => store.getters['loginUser/hasErrors']);
 const isLogin = computed(() => store.getters['loginUser/isLogin']);
 
 onMounted(async () => {
   await store.dispatch('loginUser/get');
-  if (isLogin.value && !hasErrors.value) {
-    router.push('/');
-  } else {
+  if (!isLogin.value) {
     router.push('/login');
   }
 });
@@ -31,12 +28,6 @@ const logout = async () => {
     <a href="" v-if="isLogin" @click.prevent.stop="logout" title="ログアウト"
       >logout</a
     >
-    <a
-      href=""
-      v-if="isLogin"
-      @click.prevent.stop
-      title="ログインユーザーネーム"
-      >{{ loginUser.name }}</a
-    >
+    <a href="/user" v-if="isLogin" title="プロフィール">{{ loginUser.name }}</a>
   </nav>
 </template>

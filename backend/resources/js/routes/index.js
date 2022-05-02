@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginRegister from '../pages/LoginRegister';
 import NotFound from '../pages/NotFound.vue';
 import TopPage from '../pages/TopPage';
+import UserDetails from '../pages/UserDetails';
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/login',
     component: LoginRegister,
+  },
+  {
+    path: '/user',
+    component: UserDetails,
   },
   {
     path: '/:catchAll(.*)',

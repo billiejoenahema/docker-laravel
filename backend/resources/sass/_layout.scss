@@ -58,6 +58,12 @@ main > .container {
   padding: 8px;
   height: 156px;
 }
+.user-container {
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+}
 @media (max-width: 767px) {
   #body > #app > main > .container {
     display: flex;
