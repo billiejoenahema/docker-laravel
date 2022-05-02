@@ -17,7 +17,12 @@ watchEffect(() => {
 
 <template>
   <div class="search-input-area">
-    <input class="search-input" type="search" v-model="searchWord" />
+    <input
+      class="search-input"
+      type="search"
+      v-model="searchWord"
+      placeholder="検索ワードを入力"
+    />
     <button class="search-button" @click="search()">検索</button>
   </div>
 </template>
