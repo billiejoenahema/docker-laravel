@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import TagSelectedItem from '../components/TagSelectedItem';
 import TagSelector from './TagSelector';
@@ -22,6 +22,12 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+});
+onMounted(() => {
+  const tagIds = props.currentMemo.tags.map((item) => {
+    return item.id;
+  });
+  store.commit('tags/setSelectedTags', tagIds);
 });
 const memo = reactive({
   id: props.currentMemo.id,
@@ -55,9 +61,10 @@ const updateMemo = async () => {
         <font-awesome-icon class="trash-icon" icon="trash" />
       </div>
       <TagSelectedItem
-        v-for="(tag, index) in memo.tags"
+        v-for="(tag, index) in selectedTags"
         :key="tag.id"
         :tag="tag"
+        :memoId="memo.id"
         :index="index"
       />
       <button @click="isShowTagSelector = true">タグを変更する</button>

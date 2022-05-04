@@ -1,9 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-defineProps({
+const props = defineProps({
   tag: {
     type: Object,
+    required: true,
+  },
+  memoId: {
+    type: Number,
     required: true,
   },
   index: {
@@ -13,8 +17,13 @@ defineProps({
 });
 const store = useStore();
 const isXmarkIconShow = ref(false);
-const removeTag = (index) => {
-  store.commit('tags/removeTag', index);
+const detachTag = async () => {
+  await store.dispatch('tags/detach', {
+    tagId: props.tag.id,
+    memoId: props.memoId,
+  });
+  store.commit('tags/removeTag', props.index);
+  store.dispatch('memos/get');
 };
 </script>
 
@@ -28,7 +37,7 @@ const removeTag = (index) => {
     <div
       class="xmark-icon-wrapper"
       v-if="isXmarkIconShow"
-      @click="removeTag(index)"
+      @click="detachTag(tag.id)"
       title="タグを外す"
     >
       <font-awesome-icon class="xmark-icon" icon="xmark" />

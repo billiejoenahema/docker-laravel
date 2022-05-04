@@ -59,6 +59,23 @@ class TagController extends Controller
     }
 
     /**
+     * Remove tag related the memo.
+     *
+     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function detach($id, Request $request)
+    {
+        DB::transaction(function () use ($id, $request) {
+            $tag = Tag::findOrFail($id);
+            $tag->memos()->detach($request['memoId']);
+        });
+
+        return response()->json(['message' => 'Tag detached successfully'], 200);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

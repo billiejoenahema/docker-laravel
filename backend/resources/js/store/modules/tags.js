@@ -62,6 +62,18 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
+  async remove({ commit }, { tagId, memoId }) {
+    await axios
+      .put(`/api/tags/${tagId}`, { memoId })
+      .then((res) => {
+        commit('setErrors', []);
+        commit('toast/setData', MESSAGE.update.success, { root: true });
+        commit('setSelectedTags', res.data);
+      })
+      .catch((err) => {
+        commit('setErrors', err.message);
+      });
+  },
   async delete({ commit }, id) {
     await axios
       .delete(`/api/tags/${id}`)

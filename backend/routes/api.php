@@ -34,5 +34,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/tags', [TagController::class, 'index'])->middleware('can:viewAny, App\Models\Tag');
     Route::post('/tags', [TagController::class, 'store'])->middleware('can:create, App\Models\Tag');
     Route::patch('/tags/{tag}', [TagController::class, 'update'])->middleware('can:update, App\Models\Tag');
+    Route::put('/tags/{tag}', [TagController::class, 'detach'])->middleware('can:update, App\Models\Tag');
     Route::delete('/tags/{tag}', [TagController::class, 'destroy'])->middleware('can:delete, App\Models\Tag');
 });
