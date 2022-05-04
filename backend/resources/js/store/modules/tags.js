@@ -62,7 +62,7 @@ const actions = {
         commit('setErrors', err.message);
       });
   },
-  async remove({ commit }, { tagId, memoId }) {
+  async detach({ commit }, { tagId, memoId }) {
     await axios
       .put(`/api/tags/${tagId}`, { memoId })
       .then((res) => {
@@ -107,6 +107,9 @@ const mutations = {
   },
   removeTag(state, index) {
     state.selectedTags.splice(index, 1);
+  },
+  resetSelectedTags(state) {
+    state.selectedTags = [];
   },
   setErrors(state, data) {
     state.errors = [];

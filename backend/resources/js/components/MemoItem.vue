@@ -16,6 +16,7 @@ const isModalOpen = ref(false);
 const isTrashIconShow = ref(false);
 const closeModal = () => {
   isModalOpen.value = false;
+  store.commit('tags/resetSelectedTags');
 };
 const deleteMemo = async () => {
   if (window.confirm('メモを削除しますか？')) {
