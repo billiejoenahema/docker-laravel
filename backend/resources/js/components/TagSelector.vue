@@ -2,14 +2,8 @@
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 const props = defineProps({
-  selectedTags: {
-    type: Array,
-    required: true,
-  },
-  submitSelectedTags: {
-    type: Function,
-    required: true,
-  },
+  selectedTags: Array,
+  submitSelectedTags: Function,
 });
 onMounted(() => {
   checkedTagIds.value = props.selectedTags.map((item) => item.id);

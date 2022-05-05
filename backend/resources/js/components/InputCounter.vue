@@ -1,17 +1,8 @@
 <script setup>
 defineProps({
-  isOver: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  maxLength: {
-    type: Number,
-    required: true,
-  },
+  isOver: String,
+  content: String,
+  maxLength: Number,
 });
 </script>
 

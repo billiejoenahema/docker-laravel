@@ -14,14 +14,8 @@ const props = defineProps({
     created_at: null,
     updated_at: null,
   },
-  closeModal: {
-    type: Function,
-    required: true,
-  },
-  deleteMemo: {
-    type: Function,
-    required: true,
-  },
+  closeModal: Function,
+  deleteMemo: Function,
 });
 onMounted(() => {
   const tagIds = props.currentMemo.tags.map((item) => {

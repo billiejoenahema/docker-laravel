@@ -7,8 +7,12 @@ const store = useStore();
 
 const props = defineProps({
   memo: {
-    type: Object,
-    required: true,
+    id: 0,
+    title: '',
+    content: '',
+    tags: [],
+    created_at: null,
+    updated_at: null,
   },
 });
 
