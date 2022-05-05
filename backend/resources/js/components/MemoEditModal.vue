@@ -51,6 +51,16 @@ const updateMemo = async () => {
 <template>
   <div class="modal" @click.self="closeModal()">
     <div class="memo-edit-area">
+      <div class="memo-edit-xmark-area">
+        <div class="memo-edit-xmark-wrapper">
+          <font-awesome-icon
+            class="xmark-icon"
+            icon="xmark"
+            title="モーダルを閉じる"
+            @click="closeModal()"
+          />
+        </div>
+      </div>
       <div class="trash-icon-wrapper" @click="deleteMemo()" title="メモを削除">
         <font-awesome-icon class="trash-icon" icon="trash" />
       </div>
