@@ -175,3 +175,6 @@ li > .memo-item:hover {
   display: grid;
   grid-template: 3fr 9fr;
 }
+.sort-selector > select {
+  border: none;
+}

@@ -21,14 +21,17 @@ class MemoController extends Controller
     public function index(IndexRequest $request)
     {
         $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
-        $memos = $query->when($request['tag_ids'], function($q) use ($request) {
+        $query->when($request['tag_ids'], function($q) use ($request) {
             return $q->whereHas('tags', function($q) use($request) {
                 $q->whereIn('id', $request['tag_ids']);
             });
         })->when($request['search_word'], function($q) use ($request) {
             return $q->where('title', 'like', '%'. $request['search_word'] . '%');
-        })->get();
+        });
 
+        $memos = $query->when($request['sort'],function($q) use ($request) {
+            $q->orderBy($request->getColumn(), $request->getOrder());
+        })->get();
 
         return MemoResource::collection($memos);
     }
