@@ -26,6 +26,7 @@ class IndexRequest extends FormRequest
         return [
             'tag_ids' => 'nullable|array',
             'search_word' => 'nullable|string',
+            'sort' => 'nullable|string',
         ];
     }
 
