@@ -26,7 +26,8 @@ class MemoController extends Controller
                 $q->whereIn('id', $request['tag_ids']);
             });
         })->when($request['search_word'], function($q) use ($request) {
-            return $q->where('title', 'like', '%'. $request['search_word'] . '%');
+            return $q->where('title', 'like', '%'. $request['search_word'] . '%')
+            ->orWhere('content', 'like', '%'. $request['search_word'] . '%');
         });
 
         $memos = $query->when($request['sort'],function($q) use ($request) {
