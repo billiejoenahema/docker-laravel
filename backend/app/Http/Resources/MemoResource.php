@@ -21,8 +21,8 @@ class MemoResource extends JsonResource
             'content' => $this->content ?? '',
             'user_id' => $this->user_id,
             'tags' => TagResource::collection($this->tags),
-            'created_at' => $this->created_at->format('Y-m-d'),
-            'updated_at' => $this->updated_at->format('Y-m-d'),
+            'created_at' => $this->created_at->format('Y年m月d日'),
+            'updated_at' => $this->updated_at->format('Y年m月d日'),
         ];
     }
 }

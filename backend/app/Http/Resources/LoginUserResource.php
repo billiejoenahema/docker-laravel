@@ -18,7 +18,7 @@ class LoginUserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'created_at' => $this->created_at->format('Y/m/d H:i:s'),
+            'created_at' => $this->created_at->format('Y年m月d日'),
         ];
     }
 }
