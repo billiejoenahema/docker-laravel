@@ -69,7 +69,7 @@ watchEffect(() => {
           :maxLength="MAX_LENGTH.memoContent"
         />
       </div>
-      <div class="tag-selected-list">
+      <div class="tag-selected-item-area">
         <TagSelectedItem
           v-for="(tag, index) in selectedTags"
           :key="tag.id"

@@ -17,7 +17,6 @@ li > .modal,
   padding: 8px;
   display: flex;
   flex-direction: column;
-
   background: rgb(71, 71, 71);
 }
 .tag-select-list {
@@ -52,7 +51,8 @@ li > .modal,
   justify-content: center;
   align-items: center;
 }
-.trash-icon-wrapper:hover {
+.trash-icon-wrapper:hover,
+.plus-icon-wrapper:hover {
   background: rgb(107, 107, 107);
 }
 .memo-title-edit-input {
@@ -85,7 +85,8 @@ ul > .tag-edit-modal {
   display: flex;
   justify-content: flex-end;
 }
-.memo-edit-xmark-wrapper {
+.memo-edit-xmark-wrapper,
+.plus-icon-wrapper {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -93,6 +94,13 @@ ul > .tag-edit-modal {
   justify-content: center;
   align-items: center;
 }
+.plus-icon {
+  font-size: 1rem;
+}
 .memo-edit-xmark-wrapper > .xmark-icon:hover {
   color: rgb(32, 32, 32);
+}
+.tag-selected-item-area {
+  display: flex;
+  flex-wrap: wrap;
 }

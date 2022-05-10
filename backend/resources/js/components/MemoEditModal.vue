@@ -64,20 +64,28 @@ const updateMemo = async () => {
       <div class="trash-icon-wrapper" @click="deleteMemo()" title="メモを削除">
         <font-awesome-icon class="trash-icon" icon="trash" />
       </div>
-      <TagSelectedItem
-        v-for="(tag, index) in selectedTags"
-        :key="tag.id"
-        :tag="tag"
-        :memoId="memo.id"
-        :index="index"
-      />
-      <button @click="isShowTagSelector = true">タグを変更する</button>
-      <TagSelector
-        v-if="isShowTagSelector"
-        @click.self="isShowTagSelector = false"
-        :selectedTags="memo.tags"
-        :submitSelectedTags="submitSelectedTags"
-      />
+      <div class="tag-selected-item-area">
+        <TagSelectedItem
+          v-for="(tag, index) in selectedTags"
+          :key="tag.id"
+          :tag="tag"
+          :memoId="memo.id"
+          :index="index"
+        />
+        <div
+          class="plus-icon-wrapper"
+          @click="isShowTagSelector = true"
+          title="タグを追加する"
+        >
+          <font-awesome-icon class="plus-icon" icon="plus" />
+        </div>
+        <TagSelector
+          v-if="isShowTagSelector"
+          @click.self="isShowTagSelector = false"
+          :selectedTags="memo.tags"
+          :submitSelectedTags="submitSelectedTags"
+        />
+      </div>
       <div class="date-area">
         <div class="date">作成日時: {{ memo.created_at }}</div>
         <div class="date">更新日時: {{ memo.updated_at }}</div>
