@@ -75,7 +75,7 @@ const updateMemo = async () => {
         <div
           class="plus-icon-wrapper"
           @click="isShowTagSelector = true"
-          title="タグを追加する"
+          title="タグを追加"
         >
           <font-awesome-icon class="plus-icon" icon="plus" />
         </div>

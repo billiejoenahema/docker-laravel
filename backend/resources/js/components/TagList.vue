@@ -45,7 +45,7 @@ const resetChecked = () => {
   <div id="tag-list">
     <div class="list-title">タグ一覧</div>
     <form class="list-body">
-      <button class="reset-button" type="reset" @click="resetChecked">
+      <button class="reset-button" type="reset" @click="resetChecked()">
         選択を解除
       </button>
       <ul>
