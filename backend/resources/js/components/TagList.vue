@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import TagEditModal from './TagEditModal';
 
 const store = useStore();
 
@@ -14,12 +15,6 @@ const tagEditIndex = ref(null);
 const editTag = (index) => {
   isModalOpen.value = true;
   tagEditIndex.value = index;
-};
-const updateTag = async (index) => {
-  await store.dispatch('tags/update', tags.value[index]);
-  store.dispatch('tags/get');
-  isModalOpen.value = false;
-  tagEditIndex.value = null;
 };
 const deleteTag = async (tagId) => {
   if (window.confirm('タグを削除しますか？')) {
@@ -38,6 +33,9 @@ const narrowDownMemos = () => {
 const resetChecked = () => {
   checkedTagIds.value = [];
   store.dispatch('memos/get');
+};
+const closeModal = () => {
+  isModalOpen.value = false;
 };
 </script>
 
@@ -78,21 +76,12 @@ const resetChecked = () => {
             />
           </div>
         </li>
-        <div
-          class="tag-edit-modal modal"
+        <TagEditModal
           v-if="isModalOpen"
-          @click.self="isModalOpen = false"
-        >
-          <div class="tag-edit-area">
-            <input class="tag-edit-input" v-model="tags[tagEditIndex].name" />
-            <button
-              class="tag-update-button"
-              @click.prevent="updateTag(tagEditIndex)"
-            >
-              更新する
-            </button>
-          </div>
-        </div>
+          :tag="tag"
+          @click.self="closeModal()"
+          :closeModal="closeModal"
+        />
       </ul>
     </form>
   </div>
