@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Memo;
 use App\Models\Tag;
+use App\Policies\MemoPolicy;
+use App\Policies\TagPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
