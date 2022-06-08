@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class TagController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * タグ一覧を取得する。
      *
      * @return TagResource
      */
@@ -25,7 +25,7 @@ class TagController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * タグを新規作成する。
      *
      * @param  StoreRequest
      * @return TagResource
@@ -41,10 +41,10 @@ class TagController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * タグを更新する。
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return TagResource
      */
     public function update(Request $request)
     {
@@ -59,7 +59,7 @@ class TagController extends Controller
     }
 
     /**
-     * Remove tag related the memo.
+     * 指定したメモからタグを外す。
      *
      * @param  int  $id
      * @param  \Illuminate\Http\Request  $request
@@ -76,7 +76,7 @@ class TagController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * タグを削除する。
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

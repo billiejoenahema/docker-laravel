@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\DB;
 class MemoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * メモ一覧を取得する。
+     *
      * @param IndexRequest
      * @return MemoResource
      */
@@ -38,7 +39,7 @@ class MemoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * メモを新規作成する。
      *
      * @param  StoreRequest  $request
      * @return MemoResource
@@ -61,7 +62,7 @@ class MemoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * メモを更新する。
      *
      * @param  UpdateRequest $request
      * @return MemoResource
@@ -84,7 +85,7 @@ class MemoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * メモを削除する。
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
