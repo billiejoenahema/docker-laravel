@@ -71,7 +71,6 @@ class MemoController extends Controller
         $memo = DB::transaction(function () use ($request) {
             $user = Auth::user();
             $memo = Memo::findOrFail($request['id']);
-
             $memo->user_id = $user->id;
             $memo->title = $request['title'];
             $memo->content = $request['content'];
