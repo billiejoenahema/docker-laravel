@@ -8,6 +8,7 @@ use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Requests\Memo\UpdateRequest;
 use App\Http\Resources\MemoResource;
 use App\Models\Memo;
+use App\Services\MemoService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,7 @@ class MemoController extends Controller
      * @param IndexRequest
      * @return MemoResource
      */
-    public function index(IndexRequest $request)
+    public function index(IndexRequest $request, MemoService $memoService)
     {
         $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
         $query->when($request['tag_ids'], function($q) use ($request) {
@@ -31,30 +32,21 @@ class MemoController extends Controller
             ->orWhere('content', 'like', '%'. $request['search_word'] . '%');
         });
 
-        $memos = $query->when($request['sort'],function($q) use ($request) {
-            $q->orderBy($request->getColumn(), $request->getOrder());
-        })->get();
+        $memos = $memoService->sortMemos($query, $request);
 
         return MemoResource::collection($memos);
     }
 
     /**
-     * メモを新規作成する。
+     * メモを新規登録する。
      *
      * @param  StoreRequest  $request
      * @return MemoResource
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, MemoService $memoService)
     {
-
-        $memo = DB::transaction(function () use ($request) {
-            $memo = Memo::create([
-                'title' => $request['title'],
-                'content' => $request['content'],
-                'user_id' => Auth::user()->id,
-            ]);
-            $memo->tags()->sync($request['tag_ids']);
-
+        $memo = DB::transaction(function () use ($request, $memoService) {
+            $memo = $memoService->storeMemo($request);
             return $memo;
         });
 
@@ -67,17 +59,10 @@ class MemoController extends Controller
      * @param  UpdateRequest $request
      * @return MemoResource
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, MemoService $memoService)
     {
-        $memo = DB::transaction(function () use ($request) {
-            $user = Auth::user();
-            $memo = Memo::findOrFail($request['id']);
-            $memo->user_id = $user->id;
-            $memo->title = $request['title'];
-            $memo->content = $request['content'];
-            $memo->save();
-            $memo->tags()->sync($request->getTagIds());
-
+        $memo = DB::transaction(function () use ($request, $memoService) {
+            $memo = $memoService->updateMemo($request);
             return $memo;
         });
 
