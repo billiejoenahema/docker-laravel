@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\StoreRequest;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
+use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,13 +31,9 @@ class TagController extends Controller
      * @param  StoreRequest
      * @return TagResource
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, TagService $tagService)
     {
-        $tag = Tag::create([
-            'name' => $request['name'],
-            'user_id' => Auth::user()->id
-        ]);
-
+        $tag = $tagService->storeTag($request);
         return new TagResource($tag);
     }
 
@@ -46,15 +43,9 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return TagResource
      */
-    public function update(Request $request)
+    public function update(Request $request, TagService $tagService)
     {
-        $tag = DB::transaction(function () use ($request) {
-            $tag = Tag::findOrFail($request->id);
-            $tag->name = $request->name;
-            $tag->save();
-            return $tag;
-        });
-
+        $tag = $tagService->updateTag($request);
         return new TagResource($tag);
     }
 
@@ -93,6 +84,5 @@ class TagController extends Controller
         return response()->json([
             'error_message' => 'Cannot be deleted because of the existence of a memo associated with it.'
         ]);
-
     }
 }
