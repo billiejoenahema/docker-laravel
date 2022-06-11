@@ -20,19 +20,18 @@ class MemoController extends Controller
      * @param IndexRequest
      * @return MemoResource
      */
-    public function index(IndexRequest $request, MemoService $memoService)
+    public function index(IndexRequest $request, Memo $memo)
     {
         $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
-        $query->when($request['tag_ids'], function($q) use ($request) {
-            return $q->whereHas('tags', function($q) use($request) {
-                $q->whereIn('id', $request['tag_ids']);
-            });
-        })->when($request['search_word'], function($q) use ($request) {
-            return $q->where('title', 'like', '%'. $request['search_word'] . '%')
-            ->orWhere('content', 'like', '%'. $request['search_word'] . '%');
-        });
 
-        $memos = $memoService->sortMemos($query, $request);
+        // タグで絞り込み
+        $query = $memo->filterByTag($query, $request['tag_ids']);
+
+        // 検索ワードで絞り込み
+        $query = $memo->filterBySearchWord($query, $request['search_word']);
+
+        // ソート
+        $memos = $memo->sortByRequest($query, $request->getSortColumn(), $request->getSortOrder())->get();
 
         return MemoResource::collection($memos);
     }

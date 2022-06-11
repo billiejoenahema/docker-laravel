@@ -30,4 +30,48 @@ class Memo extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+        /**
+     * メモ一覧をタグで絞り込む。
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @param string $tagIds
+     * @return Memo
+     */
+    public static function filterByTag($query, $tagIds)
+    {
+        return $query->when($tagIds, function($q) use ($tagIds) {
+            return $q->whereHas('tags', function($q) use($tagIds) {
+                $q->whereIn('id', $tagIds);
+            });
+        });
+    }
+
+    /**
+     * メモ一覧を検索ワードで絞り込む。
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @param string $searchWord
+     * @return Memo
+     */
+    public static function filterBySearchWord($query, $searchWord)
+    {
+        return $query->when($searchWord, function($q) use ($searchWord) {
+            return $q->where('title', 'like', '%'. $searchWord . '%')
+            ->orWhere('content', 'like', '%'. $searchWord . '%');
+        });
+    }
+
+    /**
+     * メモ一覧をソートする。
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @param string $sortColumn
+     * @param string $sortOrder
+     * @return Memo
+     */
+    public static function sortByRequest($query, $sortColumn, $sortOrder)
+    {
+        return $query->orderBy($sortColumn, $sortOrder);
+    }
 }

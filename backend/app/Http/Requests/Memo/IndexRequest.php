@@ -35,12 +35,15 @@ class IndexRequest extends FormRequest
      *
      * @return String
      */
-    public function getColumn()
+    public function getSortColumn()
     {
-        $sortValue = $this->input('sort');
-        // 2文字目以降をカラムとして抽出する
-        $column = substr($sortValue, 1);
-        return $column;
+        if ($this->input('sort')) {
+            $sortValue = $this->input('sort');
+            // 2文字目以降をカラムとして抽出する
+            $column = substr($sortValue, 1);
+            return $column;
+        }
+        return 'created_at';
     }
 
     /**
@@ -48,11 +51,14 @@ class IndexRequest extends FormRequest
      *
      * @return String
      */
-    public function getOrder()
+    public function getSortOrder()
     {
-        $sortValue = $this->input('sort');
-        // 1文字目が+なら昇順、そうでなければ降順
-        $order = substr($sortValue, 0, 1) === '+' ? 'asc' : 'desc';
-        return $order;
+         if ($this->input('sort')) {
+             $sortValue = $this->input('sort');
+             // 1文字目が+なら昇順、そうでなければ降順
+             $order = substr($sortValue, 0, 1) === '+' ? 'asc' : 'desc';
+             return $order;
+         }
+         return 'desc';
     }
 }

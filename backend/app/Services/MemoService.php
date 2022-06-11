@@ -8,21 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class MemoService
 {
     /**
-     * メモ一覧をソートする。
-     *
-     * @param IndexRequest $request
-     * @return Memo
-     */
-    public static function sortMemos($query, $request)
-    {
-        $memos = $query->when($request['sort'],function($q) use ($request) {
-            $q->orderBy($request->getColumn(), $request->getOrder());
-        })->get();
-
-        return $memos;
-    }
-
-    /**
      * メモを登録する。
      *
      * @param StoreRequest $request
