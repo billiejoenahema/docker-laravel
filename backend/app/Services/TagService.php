@@ -24,37 +24,20 @@ class TagService
     }
 
     /**
-     * タグを更新する。
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return
-     */
-    public static function updateTag($request)
-    {
-        $tag = Tag::findOrFail($request->id);
-
-        return $tag;
-    }
-
-    /**
-     * 指定したメモからタグを外す。
-     *
-     * @param UpdateRequest $request
-     * @return
-     */
-    public static function detachTag($request)
-    {
-
-    }
-
-    /**
      * タグを削除する。
      *
      * @param UpdateRequest $request
-     * @return
+     * @return JsonResponse
      */
-    public static function deleteTag($request)
+    public static function deleteTag($tag)
     {
-
+        // 紐づくメモが存在しなければ実行する
+        if($tag->memos()->doesntExist()) {
+            $tag->delete();
+            return response()->json(['message' => 'Tag deleted successfully'], 200);
+        }
+        return response()->json([
+            'error_message' => 'Cannot be deleted because of the existence of a memo associated with it.'
+        ]);
     }
 }

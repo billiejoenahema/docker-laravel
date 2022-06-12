@@ -20,8 +20,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $query = Tag::where('user_id', Auth::user()->id);
-        $tags = $query->get();
+        $tags = Tag::where('user_id', Auth::user()->id)->get();
         return TagResource::collection($tags);
     }
 
@@ -72,17 +71,11 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Int $id, TagService $tagService)
     {
         $tag = Tag::findOrFail($id);
+        $response = $tagService->deleteTag($tag);
 
-        // 紐づくメモが存在しなければ実行する
-        if($tag->memos()->doesntExist()) {
-            $tag->delete();
-            return response()->json(['message' => 'Tag deleted successfully'], 200);
-        }
-        return response()->json([
-            'error_message' => 'Cannot be deleted because of the existence of a memo associated with it.'
-        ]);
+        return $response;
     }
 }
