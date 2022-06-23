@@ -48,7 +48,7 @@
     "simpledotcss": "^2.0.6",
     "vue": "^3.2.29",
     "vue-element-loading": "^3.0.1",
-    "vue-router": "^4.0.12",
+    "vue-router": "4.0.16",
     "vuex": "^4.0.2"
   }
 }
