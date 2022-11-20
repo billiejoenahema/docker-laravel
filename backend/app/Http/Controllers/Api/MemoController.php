@@ -22,7 +22,7 @@ class MemoController extends Controller
      */
     public function index(IndexRequest $request, Memo $memo)
     {
-        $query = Memo::with('tags')->where('user_id', '=', Auth::user()->id);
+        $query = Memo::with('tags');
 
         // タグで絞り込み
         $query = $memo->filterByTag($query, $request['tag_ids']);
