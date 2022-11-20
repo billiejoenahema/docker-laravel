@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\AuthUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,18 @@ class Memo extends Model
         'content',
         'user_id',
     ];
+
+    /**
+     * モデルの「起動」メソッド
+     *
+     * ログインユーザーの所有するメモのみに絞り込むスコープを適用する
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new AuthUserScope);
+    }
 
     /**
      * 紐づくユーザーを取得する
@@ -31,7 +44,7 @@ class Memo extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-        /**
+    /**
      * メモ一覧をタグで絞り込む。
      *
      * @param \Illuminate\Database\Eloquent\Builder  $query
@@ -40,8 +53,8 @@ class Memo extends Model
      */
     public static function filterByTag($query, $tagIds)
     {
-        return $query->when($tagIds, function($q) use ($tagIds) {
-            return $q->whereHas('tags', function($q) use($tagIds) {
+        return $query->when($tagIds, function ($q) use ($tagIds) {
+            return $q->whereHas('tags', function ($q) use ($tagIds) {
                 $q->whereIn('id', $tagIds);
             });
         });
@@ -56,9 +69,9 @@ class Memo extends Model
      */
     public static function filterBySearchWord($query, $searchWord)
     {
-        return $query->when($searchWord, function($q) use ($searchWord) {
-            return $q->where('title', 'like', '%'. $searchWord . '%')
-            ->orWhere('content', 'like', '%'. $searchWord . '%');
+        return $query->when($searchWord, function ($q) use ($searchWord) {
+            return $q->where('title', 'like', '%' . $searchWord . '%')
+                ->orWhere('content', 'like', '%' . $searchWord . '%');
         });
     }
 
