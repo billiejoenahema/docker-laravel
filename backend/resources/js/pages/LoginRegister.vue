@@ -45,75 +45,82 @@ const register = async () => {
 </script>
 
 <template>
-  <form class="column login-form" v-if="showLoginForm">
-    <div class="row"><h4>ログイン</h4></div>
-    <div class="column">
-      <label for="login-email">メールアドレス</label>
-      <input v-model="user.email" id="login-email" name="email" type="email" />
-    </div>
-    <div class="column">
-      <label for="login-password">パスワード</label>
-      <input
-        v-model="user.password"
-        id="login-password"
-        name="password"
-        type="password"
-      />
-      <div v-for="(error, index) in errors" :key="index">
-        {{ !error.includes('401') ? error : '' }}
+  <div class="">
+    <form class="column login-form" v-if="showLoginForm">
+      <div class="row"><h4>ログイン</h4></div>
+      <div class="column">
+        <label for="login-email">メールアドレス</label>
+        <input
+          v-model="user.email"
+          id="login-email"
+          name="email"
+          type="email"
+        />
+      </div>
+      <div class="column">
+        <label for="login-password">パスワード</label>
+        <input
+          v-model="user.password"
+          id="login-password"
+          name="password"
+          type="password"
+        />
+        <div v-for="(error, index) in errors" :key="index">
+          {{ !error.includes('401') ? error : '' }}
+        </div>
+        <ul class="row">
+          <li class="button submit" @click.prevent.stop="login">ログイン</li>
+        </ul>
+      </div>
+      <div @click="showLoginForm = false" class="login-message">
+        アカウントをお持ちでない方はこちら新規登録
+      </div>
+    </form>
+
+    <form class="column register-form" v-else>
+      <div class="row"><h4>新規登録</h4></div>
+      <div class="column">
+        <label for="register-name">ユーザー名</label>
+        <input
+          v-model="newUser.name"
+          id="register-name"
+          name="name"
+          type="text"
+        />
+      </div>
+      <div class="column">
+        <label for="register-email">メールアドレス</label>
+        <input
+          v-model="newUser.email"
+          id="register-email"
+          name="email"
+          type="email"
+        />
+      </div>
+      <div class="column">
+        <label for="register-password">パスワード</label>
+        <input
+          v-model="newUser.password"
+          id="register-password"
+          name="password"
+          type="password"
+        />
+      </div>
+      <div class="column">
+        <label for="register-password-confirm">パスワード確認</label>
+        <input
+          v-model="newUser.password_confirmation"
+          id="register-password-confirm"
+          name="password_confirmation"
+          type="password"
+        />
       </div>
       <ul class="row">
-        <li class="button submit" @click.prevent.stop="login">ログイン</li>
+        <li class="button submit" @click.prevent.stop="register">登録する</li>
       </ul>
-    </div>
-    <div @click="showLoginForm = false" class="login-message">
-      アカウントをお持ちでない方はこちら新規登録
-    </div>
-  </form>
-
-  <form class="column register-form" v-else>
-    <div class="row"><h4>新規登録</h4></div>
-    <div class="column">
-      <label for="register-name">ユーザー名</label>
-      <input
-        v-model="newUser.name"
-        id="register-name"
-        name="name"
-        type="text"
-      />
-    </div>
-    <div class="column">
-      <label for="register-email">メールアドレス</label>
-      <input
-        v-model="newUser.email"
-        id="register-email"
-        name="email"
-        type="email"
-      />
-    </div>
-    <div class="column">
-      <label for="register-password">パスワード</label>
-      <input
-        v-model="newUser.password"
-        id="register-password"
-        name="password"
-        type="password"
-      />
-    </div>
-    <div class="column">
-      <label for="register-password-confirm">パスワード確認</label>
-      <input
-        v-model="newUser.password_confirmation"
-        id="register-password-confirm"
-        name="password_confirmation"
-        type="password"
-      />
-    </div>
-    <ul class="row">
-      <li class="button submit" @click.prevent.stop="register">登録する</li>
-    </ul>
-    <div @click="showLoginForm = true" class="login-message">
-      アカウントをお持ちの方はこちらからログイン
-    </div>
-  </form>
+      <div @click="showLoginForm = true" class="login-message">
+        アカウントをお持ちの方はこちらからログイン
+      </div>
+    </form>
+  </div>
 </template>
