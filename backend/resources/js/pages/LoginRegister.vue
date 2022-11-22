@@ -45,7 +45,7 @@ const register = async () => {
 </script>
 
 <template>
-  <div class="">
+  <div class="login-container">
     <form class="column login-form" v-if="showLoginForm">
       <div class="row"><h4>ログイン</h4></div>
       <div class="column">
