@@ -8,7 +8,6 @@ use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use App\Services\TagService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TagController extends Controller
@@ -20,7 +19,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::where('user_id', Auth::user()->id)->get();
+        $tags = Tag::get();
         return TagResource::collection($tags);
     }
 
@@ -51,14 +50,13 @@ class TagController extends Controller
     /**
      * 指定したメモからタグを外す。
      *
-     * @param  int  $id
+     * @param  Tag $tag
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function detach($id, Request $request)
+    public function detach(Tag $tag, Request $request)
     {
-        DB::transaction(function () use ($id, $request) {
-            $tag = Tag::findOrFail($id);
+        DB::transaction(function () use ($tag, $request) {
             $tag->memos()->detach($request['memoId']);
         });
 
@@ -68,12 +66,11 @@ class TagController extends Controller
     /**
      * タグを削除する。
      *
-     * @param  int  $id
+     * @param  Tag $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Int $id, TagService $tagService)
+    public function destroy(Tag $tag, TagService $tagService)
     {
-        $tag = Tag::findOrFail($id);
         $response = $tagService->deleteTag($tag);
 
         return $response;
