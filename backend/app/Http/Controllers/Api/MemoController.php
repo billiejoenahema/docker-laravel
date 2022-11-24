@@ -9,7 +9,6 @@ use App\Http\Requests\Memo\UpdateRequest;
 use App\Http\Resources\MemoResource;
 use App\Models\Memo;
 use App\Services\MemoService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MemoController extends Controller
@@ -71,14 +70,13 @@ class MemoController extends Controller
     /**
      * メモを削除する。
      *
-     * @param  int  $id
+     * @param  Memo $memo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Memo $memo)
     {
-        DB::transaction(function () use ($id) {
-            $memo = Memo::findOrFail($id);
-            $memo->tags()->detach($id);
+        DB::transaction(function () use ($memo) {
+            $memo->tags()->detach($memo->id);
             $memo->delete();
         });
 
